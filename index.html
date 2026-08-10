@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOCUSLYY — Study Smarter</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f7f8fc;
+  --card:#ffffff;
+  --text:#171923;
+  --muted:#737783;
+  --accent:#6c5ce7;
+  --accent2:#8b7cf6;
+  --border:#e8e8f0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 7%;
+  background:white;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+
+.logo span{color:var(--accent)}
+
+nav a{
+  margin-left:20px;
+  text-decoration:none;
+  color:var(--text);
+  font-size:14px;
+}
+
+.hero{
+  text-align:center;
+  padding:60px 20px 35px;
+}
+
+.hero h1{
+  font-size:clamp(38px,8vw,70px);
+  margin-bottom:12px;
+}
+
+.hero h1 span{color:var(--accent)}
+
+.hero p{
+  color:var(--muted);
+  font-size:17px;
+  max-width:600px;
+  margin:auto;
+  line-height:1.6;
+}
+
+.trial{
+  display:inline-block;
+  margin-top:20px;
+  background:#eeeaff;
+  color:#5949d4;
+  padding:9px 15px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;
+  margin:25px 0 40px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 8px 30px rgba(40,40,70,.05);
+}
+
+.card h2{
+  margin-bottom:8px;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+.clock{
+  text-align:center;
+  font-size:42px;
+  font-weight:700;
+  margin:18px 0;
+}
+
+.date{
+  text-align:center;
+  color:var(--muted);
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:bold;
+  background:var(--accent);
+  color:white;
+  margin:5px;
+}
+
+button.secondary{
+  background:#eeeaff;
+  color:#5949d4;
+}
+
+.timer{
+  text-align:center;
+}
+
+.timer-display{
+  font-size:55px;
+  font-weight:800;
+  margin:18px 0;
+}
+
+.mode{
+  color:var(--accent);
+  font-weight:bold;
+  font-size:14px;
+}
+
+.vip-section{
+  margin:45px 0;
+  text-align:center;
+}
+
+.vip{
+  background:linear-gradient(135deg,#181622,#302958);
+  color:white;
+  border-radius:28px;
+  padding:35px 22px;
+}
+
+.vip p{
+  color:#d8d5e8;
+  max-width:600px;
+  margin:10px auto 20px;
+  line-height:1.6;
+}
+
+.price{
+  font-size:40px;
+  font-weight:800;
+  margin:15px 0;
+}
+
+.price small{
+  font-size:14px;
+  color:#c5c1d5;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+  margin:25px auto;
+  max-width:750px;
+}
+
+.feature{
+  background:rgba(255,255,255,.08);
+  padding:13px;
+  border-radius:12px;
+  font-size:13px;
+}
+
+#payment{
+  display:none;
+  margin-top:25px;
+}
+
+.payment-box{
+  background:white;
+  color:var(--text);
+  border-radius:20px;
+  padding:25px;
+  max-width:430px;
+  margin:auto;
+}
+
+.qr{
+  width:240px;
+  height:240px;
+  object-fit:contain;
+  border-radius:15px;
+  border:1px solid var(--border);
+  margin:15px auto;
+  display:block;
+  background:#f5f5f5;
+}
+
+.note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+  margin-top:12px;
+}
+
+.status{
+  margin-top:15px;
+  font-weight:bold;
+  color:var(--accent);
+}
+
+.styles{
+  margin:45px 0;
+}
+
+.style-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin-top:20px;
+}
+
+footer{
+  text-align:center;
+  padding:35px 20px;
+  color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--border);
+  margin-top:50px;
+}
+
+/* VIP theme */
+.vip-theme{
+  --accent:#f5a623;
+  --accent2:#ffca5c;
+}
+
+.dark-theme{
+  --bg:#111116;
+  --card:#1b1b23;
+  --text:#f4f4f7;
+  --muted:#aaaab7;
+  --border:#30303b;
+}
+
+.dark-theme header{
+  background:#17171e;
+}
+
+.dark-theme .payment-box{
+  background:#202028;
+  color:white;
+}
+
+@media(max-width:600px){
+  header{padding:16px 5%}
+  nav a{margin-left:10px;font-size:12px}
+  .hero{padding-top:45px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">FOCUS<span>LYY</span></div>
+
+  <nav>
+    <a href="#tools">Tools</a>
+    <a href="#vip">VIP</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="trial">✨ 3 DAYS FREE TRIAL</div>
+
+  <h1>Focus better.<br><span>Study smarter.</span></h1>
+
+  <p>
+    A simple study companion made for students —
+    with a clock, stopwatch, Pomodoro timer and relaxing themes.
+  </p>
+</section>
+
+<main class="container" id="tools">
+
+  <section class="cards">
+
+    <!-- CLOCK -->
+    <div class="card">
+      <h2>🕐 Clock</h2>
+      <p>Your current time and date.</p>
+
+      <div class="clock" id="clock">00:00:00</div>
+      <div class="date" id="date">Loading...</div>
+    </div>
+
+    <!-- STOPWATCH -->
+    <div class="card timer">
+      <h2>⏱ Stopwatch</h2>
+      <p>Track your study sessions.</p>
+
+      <div class="timer-display" id="stopwatch">00:00:00</div>
+
+      <button onclick="startStopwatch()">Start</button>
+      <button class="secondary" onclick="pauseStopwatch()">Pause</button>
+      <button class="secondary" onclick="resetStopwatch()">Reset</button>
+    </div>
+
+    <!-- POMODORO -->
+    <div class="card timer">
+      <h2>🍅 Pomodoro</h2>
+
+      <div class="mode" id="pomMode">FOCUS SESSION</div>
+
+      <div class="timer-display" id="pomodoro">
+        25:00
+      </div>
+
+      <button onclick="startPomodoro()">Start</button>
+      <button class="secondary" onclick="pausePomodoro()">Pause</button>
+      <button class="secondary" onclick="resetPomodoro()">Reset</button>
+
+      <p style="margin-top:15px">
+        Pomodoro is available with VIP.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- THEMES -->
+  <section class="card styles">
+    <h2 style="text-align:center">🎨 Background Styles</h2>
+
+    <p style="text-align:center">
+      Choose a simple style. More premium styles are available for VIP.
+    </p>
+
+    <div class="style-buttons">
+      <button class="secondary" onclick="normalTheme()">☁️ Soft</button>
+      <button class="secondary" onclick="darkTheme()">🌙 Dark</button>
+      <button onclick="vipTheme()">✨ VIP Theme</button>
+    </div>
+  </section>
+
+  <!-- VIP -->
+  <section class="vip-section" id="vip">
+
+    <div class="vip">
+
+      <div class="trial">FOCUSLYY VIP</div>
+
+      <h2 style="font-size:32px;margin-top:15px">
+        Upgrade your focus.
+      </h2>
+
+      <p>
+        Get the full Focuslyy experience after your
+        3-day free trial.
+      </p>
+
+      <div class="price">
+        ₹100 <small>/ 30 days</small>
+      </div>
+
+      <div class="features">
+        <div class="feature">🍅 Unlimited Pomodoro</div>
+        <div class="feature">⏱ Advanced focus tools</div>
+        <div class="feature">🎨 Premium themes</div>
+        <div class="feature">📚 Study sessions</div>
+        <div class="feature">✨ VIP backgrounds</div>
+        <div class="feature">🔒 VIP features</div>
+      </div>
+
+      <button onclick="showPayment()">
+        Get VIP — ₹100
+      </button>
+
+      <div id="payment">
+
+        <div class="payment-box">
+
+          <h2>💳 VIP Payment</h2>
+
+          <p style="margin-top:8px">
+            Scan the QR below to pay
+            <strong>₹100</strong> for 30 days.
+          </p>
+
+          <!--
+          QR IMAGE:
+          After uploading your QR image to GitHub,
+          change "YOUR-QR-IMAGE.png" below to its filename.
+          -->
+
+          <img
+            class="qr"
+            src="YOUR-QR-IMAGE.png"
+            alt="FOCUSLYY VIP Payment QR"
+          >
+
+          <p>
+            After completing the payment, keep your
+            payment confirmation/transaction details.
+          </p>
+
+          <button onclick="paymentNotice()">
+            I've completed the payment
+          </button>
+
+          <div class="status" id="paymentStatus"></div>
+
+          <p class="note">
+            VIP access should only be activated after the
+            payment has been manually verified. This button
+            does not automatically confirm a payment.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 FOCUSLYY · Study smarter, one session at a time.
+</footer>
+
+<script>
+
+/* ================= CLOCK ================= */
+
+function updateClock(){
+
+  const now =
