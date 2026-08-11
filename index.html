@@ -453,9 +453,7 @@ footer{
   border-top:1px solid var(--border);
 }
 
-/* =========================
-   FULL PAGE THEMES
-========================= */
+/* FULL PAGE THEMES */
 
 body.dark{
   --bg:#0d0f16;
@@ -1000,12 +998,7 @@ body.blackpink-theme{
       </p>
 
 
-      <!--
-      QR WILL BE ADDED LATER.
-
-      Replace YOUR-QR-IMAGE.png with
-      your actual QR filename.
-      -->
+      <!-- QR WILL BE ADDED LATER -->
 
       <img
         class="qr"
@@ -1043,21 +1036,6 @@ body.blackpink-theme{
 </section>
 
 
-<!-- TESTING -->
-
-<div style="text-align:center;margin:20px 0 40px">
-
-  <button
-    class="secondary"
-    onclick="resetTrial()">
-
-    🧪 Reset Trial (Testing)
-
-  </button>
-
-</div>
-
-
 </main>
 
 
@@ -1079,9 +1057,7 @@ const TRIAL_LENGTH =
   3 * 24 * 60 * 60 * 1000;
 
 
-/* -----------------------------------------------------
-   START TRIAL ON FIRST VISIT
------------------------------------------------------ */
+/* START TRIAL ON FIRST VISIT */
 
 function getTrialStart(){
 
@@ -1105,9 +1081,7 @@ function getTrialStart(){
 }
 
 
-/* -----------------------------------------------------
-   CHECK TRIAL
------------------------------------------------------ */
+/* CHECK TRIAL */
 
 function isTrialActive(){
 
@@ -1121,16 +1095,7 @@ function isTrialActive(){
 }
 
 
-/* -----------------------------------------------------
-   CHECK VIP
-
-   During the free trial:
-   VIP = TRUE
-
-   Later:
-   VIP = FALSE unless real VIP activation
-   is added on the server.
------------------------------------------------------ */
+/* CHECK VIP */
 
 function hasVIP(){
 
@@ -1222,12 +1187,11 @@ function updateVIPLocks(){
     hasVIP();
 
 
-  /* Pomodoro */
-
   const pomodoroLock =
     document.getElementById(
       "pomodoroLock"
     );
+
 
   if(active){
 
@@ -1244,12 +1208,11 @@ function updateVIPLocks(){
   }
 
 
-  /* VIP theme labels */
-
   const locks =
     document.querySelectorAll(
       ".vip-lock"
     );
+
 
   locks.forEach(function(lock){
 
@@ -1527,7 +1490,7 @@ function vipTheme(theme){
 
 
 /* =====================================================
-   PAYMENT SECTION
+   PAYMENT
 ===================================================== */
 
 function showPayment(){
@@ -1558,20 +1521,6 @@ function submitPayment(){
 
 
 /* =====================================================
-   RESET TRIAL — TESTING ONLY
-===================================================== */
-
-function resetTrial(){
-
-  localStorage.removeItem(
-    "focuslyy_trial_start"
-  );
-
-  location.reload();
-}
-
-
-/* =====================================================
    LOAD SAVED THEME
 ===================================================== */
 
@@ -1587,9 +1536,7 @@ if(savedTheme){
 }
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+/* INITIALIZE */
 
 updateStopwatch();
 
