@@ -180,7 +180,14 @@ body.theme-3d::after{background:#a83cff}
       <br>Pomodoro is included in your 3-day free trial.
     </div>
     <div class="actions" style="margin-top:17px">
-      <button class="primary" id="pomoStart" onclick="togglePomodoro()">Start</button>
+      <select id="pomoPlan" onchange="setPomodoroPlan(this.value)" aria-label="Pomodoro duration">
+<option value="25">25 minutes</option>
+<option value="35">35 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">60 minutes</option>
+<option value="90">90 minutes</option>
+</select>
+<button class="primary" id="pomoStart" onclick="togglePomodoro()">Start</button>
       <button class="secondary" onclick="resetPomodoro()">Reset</button>
     </div>
   </div>
@@ -399,97 +406,147 @@ function updateTrialUI(){
 let pomoSeconds = 25 * 60;
 let pomoRunning = false;
 let pomoInt = null;
+let pomoMode = 'focus';
+let pomoPlanMinutes = 25;
+let pomoElapsedMinutes = 0;
+let pomoBreakIndex = 0;
 
-function renderPomodoro(){
-  const m = Math.floor(pomoSeconds/60);
-  const s = pomoSeconds%60;
+const POMO_PLANS = {
+  25: [15],
+  35: [15, 25],
+  45: [15, 25, 35],
+  60: [15, 25, 35, 45],
+  90: [15, 25, 45, 65, 85]
+};
 
-  document.getElementById('pomoDisplay').textContent =
-    `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+function setPomodoroPlan(minutes){
+  minutes = Number(minutes);
+  if(!POMO_PLANS[minutes]) return;
+  clearInterval(pomoInt);
+  pomoRunning = false;
+  pomoMode = 'focus';
+  pomoPlanMinutes = minutes;
+  pomoElapsedMinutes = 0;
+  pomoBreakIndex = 0;
+  pomoSeconds = minutes * 60;
+  renderPomodoro();
 }
 
-function canUseVIPTrialFeature(){
-  return trialActive();
+function renderPomodoro(){
+  const m = String(Math.floor(pomoSeconds / 60)).padStart(2,'0');
+  const s = String(pomoSeconds % 60).padStart(2,'0');
+  const display = document.getElementById('pomoDisplay') || document.getElementById('pomoTime');
+  if(display) display.textContent = `${m}:${s}`;
+
+  const tag = document.getElementById('pomoTag');
+  if(tag) tag.textContent = pomoMode === 'focus' ? 'FOCUS' : 'BREAK';
+
+  const msg = document.getElementById('pomoMessage');
+  if(msg){
+    msg.innerHTML = pomoMode === 'focus'
+      ? `📚 ${pomoPlanMinutes}-minute study session`
+      : `☕ 5-minute break`;
+  }
+
+  const btn = document.getElementById('pomoStart');
+  if(btn) btn.textContent = pomoRunning ? 'Pause' : 'Start';
 }
 
 function updatePomodoroAccess(){
-  const tag = document.getElementById('pomoTag');
-  const msg = document.getElementById('pomoMessage');
-  const startBtn = document.getElementById('pomoStart');
+  const btn = document.getElementById('pomoStart');
+  if(!btn) return;
 
-  if(!tag || !msg || !startBtn) return;
+  if(typeof canUseVIPTrialFeature === 'function' && !canUseVIPTrialFeature()){
+    btn.textContent = 'Unlock VIP';
+    return;
+  }
+  renderPomodoro();
+}
 
-  if(canUseVIPTrialFeature()){
-    tag.textContent='VIP + TRIAL';
-    msg.innerHTML =
-      '25 minutes of focused work, followed by a short break.' +
-      '<br>🍅 Pomodoro is included in your 3-day free trial.';
-    startBtn.textContent = pomoRunning ? 'Pause' : 'Start';
-    startBtn.disabled = false;
-    startBtn.style.opacity='1';
-    startBtn.style.cursor='pointer';
-  }else{
-    if(pomoRunning){
-      clearInterval(pomoInt);
-      pomoRunning=false;
+function pomodoroTick(){
+  if(typeof canUseVIPTrialFeature === 'function' && !canUseVIPTrialFeature()){
+    clearInterval(pomoInt);
+    pomoRunning = false;
+    updatePomodoroAccess();
+    return;
+  }
+
+  if(pomoSeconds > 0){
+    pomoSeconds--;
+
+    if(pomoMode === 'focus'){
+      const elapsed = pomoPlanMinutes - Math.ceil(pomoSeconds / 60);
+      const breakPoint = POMO_PLANS[pomoPlanMinutes][pomoBreakIndex];
+
+      if(breakPoint !== undefined && elapsed >= breakPoint){
+        clearInterval(pomoInt);
+        pomoRunning = false;
+        pomoMode = 'break';
+        pomoBreakIndex++;
+        pomoSeconds = 5 * 60;
+        alert('🍅 Focus checkpoint reached! Take a 5-minute break.');
+        renderPomodoro();
+        return;
+      }
     }
 
-    tag.textContent='VIP LOCKED';
-    msg.innerHTML =
-      'Your free trial has ended.' +
-      '<br>Unlock VIP to use Pomodoro again.';
-    startBtn.textContent='Unlock VIP';
-    startBtn.disabled=false;
-    startBtn.style.opacity='1';
-    startBtn.style.cursor='pointer';
+    renderPomodoro();
+    return;
   }
+
+  clearInterval(pomoInt);
+  pomoRunning = false;
+
+  if(pomoMode === 'break'){
+    pomoMode = 'focus';
+    const points = POMO_PLANS[pomoPlanMinutes];
+    const lastBreak = points[pomoBreakIndex - 1];
+    const nextBreak = points[pomoBreakIndex];
+
+    pomoSeconds = nextBreak !== undefined
+      ? (nextBreak - lastBreak) * 60
+      : (pomoPlanMinutes - lastBreak) * 60;
+
+    pomoRunning = true;
+    renderPomodoro();
+    pomoInt = setInterval(pomodoroTick, 1000);
+    return;
+  }
+
+  alert(`🎉 ${pomoPlanMinutes}-minute study session complete!`);
+  renderPomodoro();
 }
 
 function togglePomodoro(){
-  if(!canUseVIPTrialFeature()){
-    openVIP();
+  if(typeof canUseVIPTrialFeature === 'function' && !canUseVIPTrialFeature()){
+    if(typeof openVIP === 'function') openVIP();
     return;
   }
 
   if(pomoRunning){
-    pomoRunning=false;
+    pomoRunning = false;
     clearInterval(pomoInt);
-    document.getElementById('pomoStart').textContent='Start';
+    renderPomodoro();
     return;
   }
 
-  pomoRunning=true;
-  document.getElementById('pomoStart').textContent='Pause';
-
-  pomoInt=setInterval(()=>{
-    if(!canUseVIPTrialFeature()){
-      clearInterval(pomoInt);
-      pomoRunning=false;
-      updatePomodoroAccess();
-      return;
-    }
-
-    if(pomoSeconds > 0){
-      pomoSeconds--;
-      renderPomodoro();
-    }else{
-      clearInterval(pomoInt);
-      pomoRunning=false;
-      alert('🎉 Focus session complete!');
-      pomoSeconds=25*60;
-      renderPomodoro();
-      updatePomodoroAccess();
-    }
-  },1000);
+  pomoRunning = true;
+  renderPomodoro();
+  pomoInt = setInterval(pomodoroTick, 1000);
 }
 
 function resetPomodoro(){
   clearInterval(pomoInt);
-  pomoRunning=false;
-  pomoSeconds=25*60;
+  pomoRunning = false;
+  pomoMode = 'focus';
+  pomoElapsedMinutes = 0;
+  pomoBreakIndex = 0;
+  pomoSeconds = pomoPlanMinutes * 60;
   renderPomodoro();
   updatePomodoroAccess();
 }
+
+
 
 renderPomodoro();
 
