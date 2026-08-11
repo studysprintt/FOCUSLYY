@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FOCUSLYY — Study Smarter</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 :root{
   --bg:#f5f6fb;
-  --card:#fff;
+  --card:#ffffff;
   --text:#171923;
   --muted:#737784;
   --border:#e5e6ef;
@@ -46,7 +50,9 @@ header{
   letter-spacing:-1px;
 }
 
-.logo span{color:var(--accent)}
+.logo span{
+  color:var(--accent);
+}
 
 nav a{
   color:var(--text);
@@ -78,7 +84,9 @@ nav a{
   margin-bottom:18px;
 }
 
-.hero h1 span{color:var(--accent)}
+.hero h1 span{
+  color:var(--accent);
+}
 
 .hero p{
   max-width:620px;
@@ -128,7 +136,9 @@ nav a{
   transition:.4s;
 }
 
-.card h2{margin-bottom:8px}
+.card h2{
+  margin-bottom:8px;
+}
 
 .desc{
   color:var(--muted);
@@ -151,7 +161,9 @@ nav a{
   font-size:13px;
 }
 
-.timer{text-align:center}
+.timer{
+  text-align:center;
+}
 
 button{
   border:0;
@@ -175,41 +187,51 @@ button:hover{
   color:var(--accent);
 }
 
-.locked{
+/* POMODORO LOCK */
+
+.pomodoro-card{
   position:relative;
   overflow:hidden;
 }
 
-.lock-screen{
+.pomodoro-lock{
+  display:none;
   position:absolute;
   inset:0;
   z-index:5;
-  background:rgba(10,10,20,.78);
+  background:rgba(10,10,20,.82);
   backdrop-filter:blur(5px);
   color:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  flex-direction:column;
   text-align:center;
   padding:20px;
 }
 
-.lock-screen strong{
-  font-size:20px;
-  margin-bottom:7px;
+.pomodoro-lock.show{
+  display:flex;
 }
 
-.lock-screen span{
+.pomodoro-lock strong{
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.pomodoro-lock span{
   font-size:13px;
   opacity:.85;
 }
+
+/* THEMES */
 
 .section{
   margin-top:20px;
 }
 
-.theme-card{text-align:center}
+.theme-card{
+  text-align:center;
+}
 
 .theme-groups{
   display:grid;
@@ -251,17 +273,24 @@ button:hover{
   border-color:var(--accent);
 }
 
-.theme small{
+.vip-lock{
   position:absolute;
   top:9px;
   right:9px;
+  background:#0008;
+  padding:5px 7px;
+  border-radius:10px;
   font-size:11px;
 }
 
-.free1{background:linear-gradient(135deg,#fff,#e9edff)}
-.free2{background:linear-gradient(135deg,#eef2ff,#dbe4ff)}
-.dark1{background:linear-gradient(135deg,#171923,#303344);color:white}
-.dark2{background:linear-gradient(135deg,#080b14,#202642);color:white}
+.free1{
+  background:linear-gradient(135deg,#fff,#e9edff);
+}
+
+.dark1{
+  background:linear-gradient(135deg,#171923,#303344);
+  color:white;
+}
 
 .aurora{
   background:
@@ -274,7 +303,6 @@ button:hover{
 .glass{
   background:linear-gradient(135deg,#1d1b2d,#4b456c);
   color:white;
-  box-shadow:inset 0 1px 20px #ffffff18;
 }
 
 .lavender{
@@ -293,7 +321,7 @@ button:hover{
 .space{
   background:
   radial-gradient(circle at 25% 20%,white 1px,transparent 2px),
-  radial-gradient(circle at 70% 65%,#fff 1px,transparent 2px),
+  radial-gradient(circle at 70% 65%,white 1px,transparent 2px),
   linear-gradient(135deg,#020617,#21134d);
   background-size:55px 55px,75px 75px,auto;
   color:white;
@@ -302,38 +330,25 @@ button:hover{
 .glass3d{
   background:linear-gradient(135deg,#ffffff33,#7c3aed55);
   color:white;
-  backdrop-filter:blur(10px);
   box-shadow:inset 0 0 25px #ffffff25,0 15px 30px #0004;
 }
 
 .cortis{
-  background:
-  linear-gradient(135deg,#151515,#454545);
+  background:linear-gradient(135deg,#151515,#454545);
   color:white;
-  box-shadow:inset 0 0 35px #ffffff12;
 }
 
 .bts{
-  background:
-  linear-gradient(135deg,#27133d,#713f9e,#d39cff);
+  background:linear-gradient(135deg,#27133d,#713f9e,#d39cff);
   color:white;
 }
 
 .blackpink{
-  background:
-  linear-gradient(135deg,#090909,#3c163e,#ff5ccf);
+  background:linear-gradient(135deg,#090909,#3c163e,#ff5ccf);
   color:white;
 }
 
-.vip-lock{
-  position:absolute;
-  top:9px;
-  right:9px;
-  background:#0008;
-  padding:5px 7px;
-  border-radius:10px;
-  font-size:11px;
-}
+/* VIP */
 
 .vip-section{
   margin:40px 0;
@@ -438,7 +453,9 @@ footer{
   border-top:1px solid var(--border);
 }
 
-/* ================= THEMES ================= */
+/* =========================
+   FULL PAGE THEMES
+========================= */
 
 body.dark{
   --bg:#0d0f16;
@@ -459,7 +476,6 @@ body.aurora-theme{
   --border:#234052;
   --accent:#8b7cf6;
   --soft:#252142;
-  --shadow:0 15px 50px #0009;
 }
 
 body.glass-theme{
@@ -470,7 +486,6 @@ body.glass-theme{
   --border:#50476c;
   --accent:#b59cff;
   --soft:#3a3156;
-  --shadow:0 15px 45px #0008;
 }
 
 body.lavender-theme{
@@ -544,15 +559,32 @@ body.blackpink-theme{
 }
 
 @media(max-width:700px){
-  header{padding:15px 5%}
-  nav a{margin-left:8px;font-size:12px}
-  .theme-groups{grid-template-columns:1fr}
-  .hero{padding-top:45px}
+  header{
+    padding:15px 5%;
+  }
+
+  nav a{
+    margin-left:8px;
+    font-size:12px;
+  }
+
+  .theme-groups{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    padding-top:45px;
+  }
 }
 
 @media(max-width:450px){
-  .theme-list{grid-template-columns:1fr 1fr}
-  .display{font-size:36px}
+  .theme-list{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .display{
+    font-size:36px;
+  }
 }
 </style>
 </head>
@@ -560,19 +592,25 @@ body.blackpink-theme{
 <body>
 
 <header>
-  <div class="logo">FOCUS<span>LYY</span></div>
+
+  <div class="logo">
+    FOCUS<span>LYY</span>
+  </div>
 
   <nav>
     <a href="#tools">Tools</a>
     <a href="#themes">Themes</a>
     <a href="#vip">VIP</a>
   </nav>
+
 </header>
 
 
 <section class="hero">
 
-  <div class="badge">✨ 3 DAYS FREE TRIAL</div>
+  <div class="badge">
+    ✨ 3 DAYS FREE TRIAL
+  </div>
 
   <h1>
     Focus better.<br>
@@ -580,14 +618,15 @@ body.blackpink-theme{
   </h1>
 
   <p>
-    A calm study space with everything you need
-    to make your study sessions more focused.
+    Your calm study companion with clocks,
+    timers and beautiful study themes.
   </p>
 
 </section>
 
 
 <main class="container">
+
 
 <!-- TRIAL -->
 
@@ -608,81 +647,100 @@ body.blackpink-theme{
 
 <section id="tools" class="grid">
 
-  <!-- CLOCK -->
 
-  <div class="card">
+<!-- CLOCK -->
 
-    <h2>🕐 Clock</h2>
+<div class="card">
 
-    <p class="desc">
-      Keep track of the time while studying.
-    </p>
+  <h2>🕐 Clock</h2>
 
-    <div class="display" id="clock">
-      00:00:00
-    </div>
+  <p class="desc">
+    Keep track of the time while studying.
+  </p>
 
-    <div class="date" id="date">
-      Loading...
-    </div>
+  <div class="display" id="clock">
+    00:00:00
+  </div>
+
+  <div class="date" id="date">
+    Loading...
+  </div>
+
+</div>
+
+
+<!-- STOPWATCH -->
+
+<div class="card timer">
+
+  <h2>⏱️ Stopwatch</h2>
+
+  <p class="desc">
+    Track your study session.
+  </p>
+
+  <div class="display" id="stopwatch">
+    00:00:00
+  </div>
+
+  <button onclick="startStopwatch()">
+    Start
+  </button>
+
+  <button class="secondary" onclick="pauseStopwatch()">
+    Pause
+  </button>
+
+  <button class="secondary" onclick="resetStopwatch()">
+    Reset
+  </button>
+
+</div>
+
+
+<!-- POMODORO -->
+
+<div class="card timer pomodoro-card">
+
+  <div class="pomodoro-lock" id="pomodoroLock">
+
+    <strong>
+      🔒 VIP Pomodoro
+    </strong>
+
+    <span>
+      Your free trial has ended.
+    </span>
+
+    <button onclick="showPayment()">
+      Unlock VIP
+    </button>
 
   </div>
 
+  <h2>🍅 Pomodoro</h2>
 
-  <!-- STOPWATCH -->
+  <p class="desc">
+    25 minutes of focused study.
+  </p>
 
-  <div class="card timer">
-
-    <h2>⏱️ Stopwatch</h2>
-
-    <p class="desc">
-      Track your study session.
-    </p>
-
-    <div class="display" id="stopwatch">
-      00:00:00
-    </div>
-
-    <button onclick="startStopwatch()">Start</button>
-    <button class="secondary" onclick="pauseStopwatch()">Pause</button>
-    <button class="secondary" onclick="resetStopwatch()">Reset</button>
-
+  <div class="display" id="pomodoro">
+    25:00
   </div>
 
+  <button onclick="startPomodoro()">
+    Start
+  </button>
 
-  <!-- POMODORO -->
+  <button class="secondary" onclick="pausePomodoro()">
+    Pause
+  </button>
 
-  <div class="card timer locked">
+  <button class="secondary" onclick="resetPomodoro()">
+    Reset
+  </button>
 
-    <div class="lock-screen">
-
-      <strong>🔒 VIP Pomodoro</strong>
-
-      <span>
-        Unlock Pomodoro with FOCUSLYY VIP.
-      </span>
-
-      <button onclick="showPayment()">
-        Unlock VIP
-      </button>
-
-    </div>
-
-    <h2>🍅 Pomodoro</h2>
-
-    <p class="desc">
-      25 minutes of focus followed by a break.
-    </p>
-
-    <div class="display" id="pomodoro">
-      25:00
-    </div>
-
-    <button onclick="startPomodoro()">Start</button>
-    <button class="secondary" onclick="pausePomodoro()">Pause</button>
-    <button class="secondary" onclick="resetPomodoro()">Reset</button>
-
-  </div>
+</div>
 
 </section>
 
@@ -694,100 +752,157 @@ body.blackpink-theme{
   <h2>🎨 Study Themes</h2>
 
   <p class="desc">
-    Simple themes are free. Premium themes are available with VIP.
+    Simple themes are free. Premium themes are included
+    during your free trial and with VIP.
   </p>
 
 
   <div class="theme-groups">
 
-    <!-- FREE -->
 
-    <div class="theme-group">
+  <!-- FREE -->
 
-      <h3>🆓 Free Themes</h3>
+  <div class="theme-group">
 
-      <div class="theme-list">
+    <h3>🆓 Free Themes</h3>
 
-        <div class="theme free1"
-             onclick="setTheme('')">
-          ☀️ Light
-        </div>
+    <div class="theme-list">
 
-        <div class="theme dark1"
-             onclick="setTheme('dark')">
-          🌙 Dark
-        </div>
+      <div class="theme free1"
+           onclick="setTheme('')">
+        ☀️ Light
+      </div>
 
+      <div class="theme dark1"
+           onclick="setTheme('dark')">
+        🌙 Dark
       </div>
 
     </div>
 
+  </div>
 
-    <!-- VIP -->
 
-    <div class="theme-group">
+  <!-- VIP -->
 
-      <h3>💎 VIP Themes</h3>
+  <div class="theme-group">
 
-      <div class="theme-list">
+    <h3>💎 VIP Themes</h3>
 
-        <div class="theme aurora"
-             onclick="vipTheme('aurora-theme')">
-          🌌 Aurora Night
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
+    <div class="theme-list">
 
-        <div class="theme glass"
-             onclick="vipTheme('glass-theme')">
-          🪞 Midnight Glass
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
 
-        <div class="theme lavender"
-             onclick="vipTheme('lavender-theme')">
-          💜 Lavender Dream
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
+      <div class="theme aurora"
+           onclick="vipTheme('aurora-theme')">
 
-        <div class="theme neon"
-             onclick="vipTheme('neon-theme')">
-          🌃 Neon City
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
+        🌌 Aurora Night
 
-        <div class="theme space"
-             onclick="vipTheme('space-theme')">
-          🪐 3D Space
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
-
-        <div class="theme glass3d"
-             onclick="vipTheme('glass3d-theme')">
-          🔮 3D Glass
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
-
-        <div class="theme cortis"
-             onclick="vipTheme('cortis-theme')">
-          🎵 CORTIS-inspired
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
-
-        <div class="theme bts"
-             onclick="vipTheme('bts-theme')">
-          💜 BTS-inspired
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
-
-        <div class="theme blackpink"
-             onclick="vipTheme('blackpink-theme')">
-          🖤💗 BLACKPINK-inspired
-          <span class="vip-lock">🔒 VIP</span>
-        </div>
+        <span class="vip-lock">
+          💎 VIP
+        </span>
 
       </div>
 
+
+      <div class="theme glass"
+           onclick="vipTheme('glass-theme')">
+
+        🪞 Midnight Glass
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme lavender"
+           onclick="vipTheme('lavender-theme')">
+
+        💜 Lavender Dream
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme neon"
+           onclick="vipTheme('neon-theme')">
+
+        🌃 Neon City
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme space"
+           onclick="vipTheme('space-theme')">
+
+        🪐 3D Space
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme glass3d"
+           onclick="vipTheme('glass3d-theme')">
+
+        🔮 3D Glass
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme cortis"
+           onclick="vipTheme('cortis-theme')">
+
+        🎵 CORTIS-inspired
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme bts"
+           onclick="vipTheme('bts-theme')">
+
+        💜 BTS-inspired
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
+      <div class="theme blackpink"
+           onclick="vipTheme('blackpink-theme')">
+
+        🖤💗 BLACKPINK-inspired
+
+        <span class="vip-lock">
+          💎 VIP
+        </span>
+
+      </div>
+
+
     </div>
+
+  </div>
 
   </div>
 
@@ -798,213 +913,427 @@ body.blackpink-theme{
 
 <section id="vip" class="vip-section">
 
-  <div class="vip-box">
+<div class="vip-box">
 
-    <div class="badge">
-      FOCUSLYY VIP
+  <div class="badge">
+    FOCUSLYY VIP
+  </div>
+
+  <h2>
+    Upgrade your focus.
+  </h2>
+
+  <p>
+    Enjoy all premium features during your
+    3-day free trial. After that, unlock VIP
+    for ₹100 / 30 days.
+  </p>
+
+  <div class="price">
+    ₹100
+    <small>/ 30 days</small>
+  </div>
+
+
+  <div class="features">
+
+    <div class="feature">
+      🍅 Pomodoro
     </div>
 
-    <h2>Upgrade your focus.</h2>
-
-    <p>
-      Try FOCUSLYY free for 3 days, then unlock
-      the premium experience for ₹100 / 30 days.
-    </p>
-
-    <div class="price">
-      ₹100 <small>/ 30 days</small>
+    <div class="feature">
+      🌌 Aurora Night
     </div>
 
-
-    <div class="features">
-
-      <div class="feature">🍅 Pomodoro</div>
-      <div class="feature">🌌 Aurora Night</div>
-      <div class="feature">🪞 Midnight Glass</div>
-      <div class="feature">💜 Lavender Dream</div>
-      <div class="feature">🌃 Neon City</div>
-      <div class="feature">🪐 3D Space</div>
-      <div class="feature">🎵 CORTIS-inspired</div>
-      <div class="feature">💜 BTS-inspired</div>
-      <div class="feature">🖤💗 BLACKPINK-inspired</div>
-
+    <div class="feature">
+      🪞 Midnight Glass
     </div>
 
-    <button onclick="showPayment()">
-      Get VIP — ₹100
-    </button>
+    <div class="feature">
+      💜 Lavender Dream
+    </div>
+
+    <div class="feature">
+      🌃 Neon City
+    </div>
+
+    <div class="feature">
+      🪐 3D Space
+    </div>
+
+    <div class="feature">
+      🔮 3D Glass
+    </div>
+
+    <div class="feature">
+      🎵 CORTIS-inspired
+    </div>
+
+    <div class="feature">
+      💜 BTS-inspired
+    </div>
+
+    <div class="feature">
+      🖤💗 BLACKPINK-inspired
+    </div>
+
+  </div>
 
 
-    <!-- PAYMENT -->
+  <button onclick="showPayment()">
+    Get VIP — ₹100
+  </button>
 
-    <div class="payment" id="payment">
 
-      <div class="payment-box">
+  <!-- PAYMENT -->
 
-        <h2>💳 VIP Payment</h2>
+  <div class="payment" id="payment">
 
-        <p style="margin-top:10px">
-          Pay ₹100 for 30 days of VIP access.
-        </p>
+    <div class="payment-box">
 
-        <!--
-        QR WILL BE ADDED LATER.
+      <h2>
+        💳 VIP Payment
+      </h2>
 
-        When you upload your QR image to GitHub,
-        replace YOUR-QR-IMAGE.png with its filename.
-        -->
+      <p style="margin-top:10px">
+        Pay ₹100 for 30 days of VIP access.
+      </p>
 
-        <img
-          class="qr"
-          src="YOUR-QR-IMAGE.png"
-          alt="FOCUSLYY payment QR"
-        >
 
-        <p>
-          After completing the payment, keep your
-          transaction/reference details.
-        </p>
+      <!--
+      QR WILL BE ADDED LATER.
 
-        <button onclick="submitPayment()">
-          I've completed payment
-        </button>
+      Replace YOUR-QR-IMAGE.png with
+      your actual QR filename.
+      -->
 
-        <div id="paymentStatus"></div>
+      <img
+        class="qr"
+        src="YOUR-QR-IMAGE.png"
+        alt="FOCUSLYY payment QR"
+      >
 
-        <p class="note">
-          This button does not automatically verify a payment.
-          VIP access should only be activated after payment
-          has been manually checked.
-        </p>
 
-      </div>
+      <p>
+        After completing payment, keep your
+        transaction/reference details.
+      </p>
+
+
+      <button onclick="submitPayment()">
+        I've completed payment
+      </button>
+
+
+      <div id="paymentStatus"></div>
+
+
+      <p class="note">
+        Payment must be checked before VIP is
+        manually activated. This demo does not
+        automatically verify payments.
+      </p>
 
     </div>
 
   </div>
 
+</div>
+
 </section>
+
+
+<!-- TESTING -->
+
+<div style="text-align:center;margin:20px 0 40px">
+
+  <button
+    class="secondary"
+    onclick="resetTrial()">
+
+    🧪 Reset Trial (Testing)
+
+  </button>
+
+</div>
+
 
 </main>
 
 
 <footer>
-  © 2026 FOCUSLYY · Study smarter, one session at a time.
+
+  © 2026 FOCUSLYY · Study smarter,
+  one session at a time.
+
 </footer>
 
 
 <script>
 
-/* =========================
-   3-DAY TRIAL
-========================= */
+/* =====================================================
+   FOCUSLYY ACCESS SYSTEM
+===================================================== */
 
 const TRIAL_LENGTH =
   3 * 24 * 60 * 60 * 1000;
 
-let trialStart =
-  localStorage.getItem("focuslyy_trial_start");
 
-if(!trialStart){
+/* -----------------------------------------------------
+   START TRIAL ON FIRST VISIT
+----------------------------------------------------- */
 
-  trialStart = Date.now().toString();
+function getTrialStart(){
 
-  localStorage.setItem(
-    "focuslyy_trial_start",
-    trialStart
-  );
+  let start =
+    localStorage.getItem(
+      "focuslyy_trial_start"
+    );
+
+  if(!start){
+
+    start =
+      Date.now().toString();
+
+    localStorage.setItem(
+      "focuslyy_trial_start",
+      start
+    );
+  }
+
+  return Number(start);
 }
+
+
+/* -----------------------------------------------------
+   CHECK TRIAL
+----------------------------------------------------- */
+
+function isTrialActive(){
+
+  const start =
+    getTrialStart();
+
+  const elapsed =
+    Date.now() - start;
+
+  return elapsed < TRIAL_LENGTH;
+}
+
+
+/* -----------------------------------------------------
+   CHECK VIP
+
+   During the free trial:
+   VIP = TRUE
+
+   Later:
+   VIP = FALSE unless real VIP activation
+   is added on the server.
+----------------------------------------------------- */
+
+function hasVIP(){
+
+  return isTrialActive();
+}
+
+
+/* =====================================================
+   TRIAL DISPLAY
+===================================================== */
 
 function updateTrial(){
 
   const start =
-    Number(
-      localStorage.getItem("focuslyy_trial_start")
-    );
+    getTrialStart();
 
   const remaining =
-    TRIAL_LENGTH - (Date.now() - start);
+    TRIAL_LENGTH -
+    (Date.now() - start);
 
   const text =
-    document.getElementById("trialText");
+    document.getElementById(
+      "trialText"
+    );
+
 
   if(remaining <= 0){
 
     text.innerHTML =
-      "⛔ Your 3-day free trial has ended.";
+      "⛔ Your 3-day free trial has ended. Upgrade to VIP for ₹100 / 30 days.";
+
+    updateVIPLocks();
 
     return;
   }
 
+
   const days =
-    Math.floor(remaining / 86400000);
+    Math.floor(
+      remaining / 86400000
+    );
 
   const hours =
     Math.floor(
-      (remaining % 86400000) / 3600000
+      (remaining % 86400000) /
+      3600000
     );
 
   const minutes =
     Math.floor(
-      (remaining % 3600000) / 60000
+      (remaining % 3600000) /
+      60000
     );
 
   const seconds =
     Math.floor(
-      (remaining % 60000) / 1000
+      (remaining % 60000) /
+      1000
     );
 
+
   text.innerHTML =
-    `✨ ${days}d ${hours}h ${minutes}m ${seconds}s remaining`;
+    "✨ " +
+    days + "d " +
+    hours + "h " +
+    minutes + "m " +
+    seconds + "s remaining";
+
+
+  updateVIPLocks();
 }
 
-setInterval(updateTrial,1000);
+
+setInterval(
+  updateTrial,
+  1000
+);
+
 updateTrial();
 
 
-/* =========================
+/* =====================================================
+   VIP LOCKS
+===================================================== */
+
+function updateVIPLocks(){
+
+  const active =
+    hasVIP();
+
+
+  /* Pomodoro */
+
+  const pomodoroLock =
+    document.getElementById(
+      "pomodoroLock"
+    );
+
+  if(active){
+
+    pomodoroLock.classList.remove(
+      "show"
+    );
+
+  }else{
+
+    pomodoroLock.classList.add(
+      "show"
+    );
+
+  }
+
+
+  /* VIP theme labels */
+
+  const locks =
+    document.querySelectorAll(
+      ".vip-lock"
+    );
+
+  locks.forEach(function(lock){
+
+    if(active){
+
+      lock.textContent =
+        "✓ Trial";
+
+    }else{
+
+      lock.textContent =
+        "💎 VIP";
+
+    }
+
+  });
+
+}
+
+
+/* =====================================================
    CLOCK
-========================= */
+===================================================== */
 
 function updateClock(){
 
-  const now = new Date();
+  const now =
+    new Date();
 
-  document.getElementById("clock")
-    .textContent =
+
+  document.getElementById(
+    "clock"
+  ).textContent =
     now.toLocaleTimeString();
 
-  document.getElementById("date")
-    .textContent =
-    now.toLocaleDateString(undefined,{
-      weekday:"long",
-      year:"numeric",
-      month:"long",
-      day:"numeric"
-    });
+
+  document.getElementById(
+    "date"
+  ).textContent =
+    now.toLocaleDateString(
+      undefined,
+      {
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+      }
+    );
 }
 
-setInterval(updateClock,1000);
+
+setInterval(
+  updateClock,
+  1000
+);
+
 updateClock();
 
 
-/* =========================
+/* =====================================================
    STOPWATCH
-========================= */
+===================================================== */
 
 let stopwatchSeconds = 0;
-let stopwatchInterval = null;
+
+let stopwatchInterval =
+  null;
+
 
 function formatTime(seconds){
 
   const h =
-    Math.floor(seconds / 3600);
+    Math.floor(
+      seconds / 3600
+    );
 
   const m =
-    Math.floor((seconds % 3600) / 60);
+    Math.floor(
+      (seconds % 3600) / 60
+    );
 
   const s =
     seconds % 60;
+
 
   return (
     String(h).padStart(2,"0") +
@@ -1015,33 +1344,48 @@ function formatTime(seconds){
   );
 }
 
+
 function updateStopwatch(){
 
-  document.getElementById("stopwatch")
-    .textContent =
-    formatTime(stopwatchSeconds);
+  document.getElementById(
+    "stopwatch"
+  ).textContent =
+    formatTime(
+      stopwatchSeconds
+    );
 }
+
 
 function startStopwatch(){
 
-  if(stopwatchInterval) return;
+  if(stopwatchInterval)
+    return;
+
 
   stopwatchInterval =
-    setInterval(function(){
+    setInterval(
+      function(){
 
-      stopwatchSeconds++;
+        stopwatchSeconds++;
 
-      updateStopwatch();
+        updateStopwatch();
 
-    },1000);
+      },
+      1000
+    );
 }
+
 
 function pauseStopwatch(){
 
-  clearInterval(stopwatchInterval);
+  clearInterval(
+    stopwatchInterval
+  );
 
-  stopwatchInterval = null;
+  stopwatchInterval =
+    null;
 }
+
 
 function resetStopwatch(){
 
@@ -1053,68 +1397,87 @@ function resetStopwatch(){
 }
 
 
-/* =========================
+/* =====================================================
    POMODORO
-========================= */
+===================================================== */
 
 let pomodoroSeconds =
   25 * 60;
 
-let pomodoroInterval = null;
+let pomodoroInterval =
+  null;
+
 
 function updatePomodoro(){
 
   const minutes =
-    Math.floor(pomodoroSeconds / 60);
+    Math.floor(
+      pomodoroSeconds / 60
+    );
 
   const seconds =
     pomodoroSeconds % 60;
 
-  document.getElementById("pomodoro")
-    .textContent =
+
+  document.getElementById(
+    "pomodoro"
+  ).textContent =
     String(minutes).padStart(2,"0") +
     ":" +
     String(seconds).padStart(2,"0");
 }
 
+
 function startPomodoro(){
 
-  if(!vipActive){
+  if(!hasVIP()){
 
     showPayment();
 
     return;
   }
 
-  if(pomodoroInterval) return;
+
+  if(pomodoroInterval)
+    return;
+
 
   pomodoroInterval =
-    setInterval(function(){
+    setInterval(
+      function(){
 
-      if(pomodoroSeconds <= 0){
+        if(pomodoroSeconds <= 0){
 
-        pausePomodoro();
+          pausePomodoro();
 
-        alert(
-          "🍅 Pomodoro complete! Take a short break."
-        );
+          alert(
+            "🍅 Pomodoro complete! Take a short break."
+          );
 
-        return;
-      }
+          return;
+        }
 
-      pomodoroSeconds--;
 
-      updatePomodoro();
+        pomodoroSeconds--;
 
-    },1000);
+        updatePomodoro();
+
+      },
+      1000
+    );
 }
+
 
 function pausePomodoro(){
 
-  clearInterval(pomodoroInterval);
+  clearInterval(
+    pomodoroInterval
+  );
 
-  pomodoroInterval = null;
+  pomodoroInterval =
+    null;
 }
+
 
 function resetPomodoro(){
 
@@ -1127,23 +1490,14 @@ function resetPomodoro(){
 }
 
 
-/* =========================
-   VIP / THEMES
-========================= */
-
-/*
-   This is currently a demo VIP state.
-
-   Real payment verification should NOT be
-   handled only by JavaScript/localStorage.
-*/
-
-let vipActive = false;
-
+/* =====================================================
+   THEMES
+===================================================== */
 
 function setTheme(theme){
 
-  document.body.className = theme;
+  document.body.className =
+    theme;
 
   localStorage.setItem(
     "focuslyy_theme",
@@ -1154,11 +1508,12 @@ function setTheme(theme){
 
 function vipTheme(theme){
 
-  if(!vipActive){
+  if(!hasVIP()){
 
     alert(
-      "💎 VIP Theme\n\n" +
-      "This theme is available with FOCUSLYY VIP."
+      "💎 This is a VIP theme.\n\n" +
+      "Your free trial has ended. " +
+      "Upgrade for ₹100 / 30 days."
     );
 
     showPayment();
@@ -1166,20 +1521,25 @@ function vipTheme(theme){
     return;
   }
 
+
   setTheme(theme);
 }
 
 
-/* =========================
-   PAYMENT
-========================= */
+/* =====================================================
+   PAYMENT SECTION
+===================================================== */
 
 function showPayment(){
 
   const payment =
-    document.getElementById("payment");
+    document.getElementById(
+      "payment"
+    );
 
-  payment.style.display = "block";
+  payment.style.display =
+    "block";
+
 
   payment.scrollIntoView({
     behavior:"smooth",
@@ -1197,9 +1557,23 @@ function submitPayment(){
 }
 
 
-/* =========================
-   LOAD THEME
-========================= */
+/* =====================================================
+   RESET TRIAL — TESTING ONLY
+===================================================== */
+
+function resetTrial(){
+
+  localStorage.removeItem(
+    "focuslyy_trial_start"
+  );
+
+  location.reload();
+}
+
+
+/* =====================================================
+   LOAD SAVED THEME
+===================================================== */
 
 const savedTheme =
   localStorage.getItem(
@@ -1207,15 +1581,21 @@ const savedTheme =
   );
 
 if(savedTheme){
+
   document.body.className =
     savedTheme;
 }
 
 
-/* INITIALIZE */
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
 updateStopwatch();
+
 updatePomodoro();
+
+updateVIPLocks();
 
 </script>
 
