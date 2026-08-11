@@ -2,25 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>FOCUSLYY — Study Smarter</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
   --bg:#f5f6fb;
-  --card:#ffffff;
-  --text:#181922;
-  --muted:#747784;
+  --card:#fff;
+  --text:#171923;
+  --muted:#737784;
   --border:#e5e6ef;
   --accent:#6c5ce7;
-  --accent-light:#eeeaff;
+  --soft:#eeeaff;
   --shadow:0 10px 35px rgba(40,40,80,.08);
 }
 
@@ -29,20 +24,20 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
-  transition:.3s ease;
+  transition:.5s;
 }
 
 header{
   position:sticky;
   top:0;
-  z-index:100;
+  z-index:20;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:17px 7%;
+  padding:17px 6%;
   background:var(--card);
   border-bottom:1px solid var(--border);
-  transition:.3s;
+  backdrop-filter:blur(15px);
 }
 
 .logo{
@@ -51,49 +46,45 @@ header{
   letter-spacing:-1px;
 }
 
-.logo span{
-  color:var(--accent);
-}
+.logo span{color:var(--accent)}
 
 nav a{
   color:var(--text);
   text-decoration:none;
-  margin-left:20px;
+  margin-left:18px;
   font-size:14px;
 }
 
 .hero{
   text-align:center;
-  padding:65px 20px 40px;
+  padding:60px 20px 35px;
 }
 
-.trial{
+.badge{
   display:inline-block;
+  background:var(--soft);
+  color:var(--accent);
   padding:8px 15px;
   border-radius:30px;
-  background:var(--accent-light);
-  color:var(--accent);
   font-size:12px;
-  font-weight:bold;
+  font-weight:800;
   margin-bottom:18px;
 }
 
 .hero h1{
   font-size:clamp(42px,9vw,72px);
-  line-height:1.05;
+  line-height:1;
+  letter-spacing:-3px;
   margin-bottom:18px;
 }
 
-.hero h1 span{
-  color:var(--accent);
-}
+.hero h1 span{color:var(--accent)}
 
 .hero p{
   max-width:620px;
   margin:auto;
   color:var(--muted);
   line-height:1.6;
-  font-size:16px;
 }
 
 .container{
@@ -101,10 +92,31 @@ nav a{
   margin:auto;
 }
 
+.trial{
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  border-radius:20px;
+  padding:18px;
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.trial-title{
+  font-weight:800;
+  font-size:15px;
+}
+
+#trialText{
+  color:var(--accent);
+  font-weight:800;
+  margin-top:7px;
+}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-  gap:20px;
+  gap:18px;
 }
 
 .card{
@@ -113,24 +125,24 @@ nav a{
   border-radius:24px;
   padding:25px;
   box-shadow:var(--shadow);
-  transition:.3s;
+  transition:.4s;
 }
 
-.card h2{
-  margin-bottom:8px;
-}
+.card h2{margin-bottom:8px}
 
-.description{
+.desc{
   color:var(--muted);
   font-size:14px;
   line-height:1.5;
 }
 
-.clock{
+.display{
   text-align:center;
-  font-size:42px;
-  font-weight:800;
-  margin:25px 0 8px;
+  font-size:43px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin:24px 0 8px;
+  font-variant-numeric:tabular-nums;
 }
 
 .date{
@@ -139,26 +151,17 @@ nav a{
   font-size:13px;
 }
 
-.timer{
-  text-align:center;
-}
-
-.timer-display{
-  font-size:48px;
-  font-weight:800;
-  margin:25px 0;
-  letter-spacing:2px;
-}
+.timer{text-align:center}
 
 button{
   border:0;
   border-radius:12px;
-  padding:12px 18px;
+  padding:11px 17px;
   margin:4px;
   cursor:pointer;
-  font-weight:bold;
   background:var(--accent);
-  color:white;
+  color:#fff;
+  font-weight:800;
   transition:.2s;
 }
 
@@ -168,7 +171,7 @@ button:hover{
 }
 
 .secondary{
-  background:var(--accent-light);
+  background:var(--soft);
   color:var(--accent);
 }
 
@@ -177,64 +180,177 @@ button:hover{
   overflow:hidden;
 }
 
-.lock-overlay{
+.lock-screen{
   position:absolute;
   inset:0;
-  background:rgba(20,20,30,.72);
-  backdrop-filter:blur(4px);
+  z-index:5;
+  background:rgba(10,10,20,.78);
+  backdrop-filter:blur(5px);
   color:white;
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
   padding:20px;
-  z-index:2;
 }
 
-.lock-overlay strong{
+.lock-screen strong{
   font-size:20px;
-  margin-bottom:8px;
+  margin-bottom:7px;
 }
 
-.lock-overlay span{
+.lock-screen span{
   font-size:13px;
   opacity:.85;
 }
 
 .section{
-  margin-top:25px;
-}
-
-.themes{
-  text-align:center;
-  margin-top:25px;
-}
-
-.theme-buttons{
   margin-top:20px;
+}
+
+.theme-card{text-align:center}
+
+.theme-groups{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-top:20px;
+}
+
+.theme-group{
+  text-align:left;
+}
+
+.theme-group h3{
+  margin-bottom:12px;
+}
+
+.theme-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.theme{
+  min-height:100px;
+  border-radius:18px;
+  padding:13px;
   display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
+  align-items:flex-end;
+  font-weight:800;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.25s;
+  border:2px solid transparent;
+}
+
+.theme:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+}
+
+.theme small{
+  position:absolute;
+  top:9px;
+  right:9px;
+  font-size:11px;
+}
+
+.free1{background:linear-gradient(135deg,#fff,#e9edff)}
+.free2{background:linear-gradient(135deg,#eef2ff,#dbe4ff)}
+.dark1{background:linear-gradient(135deg,#171923,#303344);color:white}
+.dark2{background:linear-gradient(135deg,#080b14,#202642);color:white}
+
+.aurora{
+  background:
+  radial-gradient(circle at 20% 20%,#8b5cf6,transparent 35%),
+  radial-gradient(circle at 80% 70%,#22d3ee,transparent 35%),
+  #07111d;
+  color:white;
+}
+
+.glass{
+  background:linear-gradient(135deg,#1d1b2d,#4b456c);
+  color:white;
+  box-shadow:inset 0 1px 20px #ffffff18;
+}
+
+.lavender{
+  background:linear-gradient(135deg,#eadcff,#9b7bea,#5b3fa1);
+  color:white;
+}
+
+.neon{
+  background:
+  radial-gradient(circle at 20% 30%,#00ffd5,transparent 25%),
+  radial-gradient(circle at 80% 70%,#ff3df2,transparent 25%),
+  #090b15;
+  color:white;
+}
+
+.space{
+  background:
+  radial-gradient(circle at 25% 20%,white 1px,transparent 2px),
+  radial-gradient(circle at 70% 65%,#fff 1px,transparent 2px),
+  linear-gradient(135deg,#020617,#21134d);
+  background-size:55px 55px,75px 75px,auto;
+  color:white;
+}
+
+.glass3d{
+  background:linear-gradient(135deg,#ffffff33,#7c3aed55);
+  color:white;
+  backdrop-filter:blur(10px);
+  box-shadow:inset 0 0 25px #ffffff25,0 15px 30px #0004;
+}
+
+.cortis{
+  background:
+  linear-gradient(135deg,#151515,#454545);
+  color:white;
+  box-shadow:inset 0 0 35px #ffffff12;
+}
+
+.bts{
+  background:
+  linear-gradient(135deg,#27133d,#713f9e,#d39cff);
+  color:white;
+}
+
+.blackpink{
+  background:
+  linear-gradient(135deg,#090909,#3c163e,#ff5ccf);
+  color:white;
+}
+
+.vip-lock{
+  position:absolute;
+  top:9px;
+  right:9px;
+  background:#0008;
+  padding:5px 7px;
+  border-radius:10px;
+  font-size:11px;
 }
 
 .vip-section{
-  margin:45px 0;
+  margin:40px 0;
 }
 
 .vip-box{
-  text-align:center;
-  background:linear-gradient(135deg,#17151f,#302557);
+  background:linear-gradient(135deg,#17151f,#38265d);
   color:white;
-  border-radius:30px;
-  padding:40px 22px;
-  box-shadow:0 20px 50px rgba(30,20,70,.25);
+  text-align:center;
+  padding:38px 22px;
+  border-radius:28px;
+  box-shadow:0 20px 55px #20103940;
 }
 
-.vip-box .trial{
-  background:rgba(255,255,255,.12);
-  color:#d9d0ff;
+.vip-box .badge{
+  background:#ffffff15;
+  color:#ddceff;
 }
 
 .vip-box h2{
@@ -244,47 +360,47 @@ button:hover{
 
 .vip-box p{
   max-width:600px;
-  margin:12px auto;
-  color:#d1ccdf;
+  margin:10px auto;
+  color:#d0c8dd;
   line-height:1.6;
 }
 
 .price{
-  font-size:44px;
+  font-size:45px;
   font-weight:900;
-  margin:20px 0;
+  margin:18px 0;
 }
 
 .price small{
   font-size:14px;
+  color:#bdb4cc;
   font-weight:normal;
-  color:#bbb4ce;
 }
 
 .features{
-  max-width:750px;
-  margin:25px auto;
+  max-width:760px;
+  margin:22px auto;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
   gap:10px;
 }
 
 .feature{
-  background:rgba(255,255,255,.09);
   padding:13px;
-  border-radius:12px;
+  border-radius:13px;
+  background:#ffffff0d;
   font-size:13px;
 }
 
 .payment{
   display:none;
-  margin:25px auto 0;
   max-width:430px;
+  margin:25px auto 0;
 }
 
 .payment-box{
   background:white;
-  color:#181922;
+  color:#171923;
   border-radius:22px;
   padding:25px;
 }
@@ -295,125 +411,168 @@ button:hover{
   object-fit:contain;
   display:block;
   margin:20px auto;
-  border-radius:15px;
+  background:#f4f4f4;
   border:1px solid #ddd;
-  background:#f5f5f5;
+  border-radius:15px;
 }
 
 .note{
-  font-size:12px;
   color:#777;
+  font-size:12px;
   line-height:1.5;
   margin-top:12px;
 }
 
 #paymentStatus{
-  margin-top:12px;
   color:#6c5ce7;
-  font-size:13px;
   font-weight:bold;
+  font-size:13px;
+  margin-top:12px;
 }
 
 footer{
   text-align:center;
-  padding:40px 20px;
-  margin-top:50px;
-  border-top:1px solid var(--border);
   color:var(--muted);
-  font-size:13px;
+  padding:40px 20px;
+  margin-top:30px;
+  border-top:1px solid var(--border);
 }
 
-
-/* =========================
-   DARK THEME
-========================= */
+/* ================= THEMES ================= */
 
 body.dark{
-  --bg:#0f1015;
-  --card:#191a21;
+  --bg:#0d0f16;
+  --card:#181a23;
   --text:#f4f4f7;
-  --muted:#a8a9b5;
-  --border:#2c2d37;
+  --muted:#a5a7b4;
+  --border:#2d2f3b;
+  --accent:#9182ff;
+  --soft:#292543;
+  --shadow:0 15px 45px #0008;
+}
+
+body.aurora-theme{
+  --bg:#06101a;
+  --card:#101e2a;
+  --text:#f3faff;
+  --muted:#a7c1ce;
+  --border:#234052;
   --accent:#8b7cf6;
-  --accent-light:#292542;
-  --shadow:0 10px 35px rgba(0,0,0,.35);
+  --soft:#252142;
+  --shadow:0 15px 50px #0009;
 }
 
-
-/* =========================
-   VIP THEME
-========================= */
-
-body.vip{
-  --bg:#100d18;
-  --card:#1b1627;
-  --text:#faf8ff;
-  --muted:#bdb5ca;
-  --border:#352b48;
-  --accent:#c8a6ff;
-  --accent-light:#302442;
-  --shadow:0 10px 40px rgba(0,0,0,.4);
+body.glass-theme{
+  --bg:#171525;
+  --card:#28243d;
+  --text:#fff;
+  --muted:#c1bdd0;
+  --border:#50476c;
+  --accent:#b59cff;
+  --soft:#3a3156;
+  --shadow:0 15px 45px #0008;
 }
 
-body.vip .logo span{
-  color:#d6b5ff;
+body.lavender-theme{
+  --bg:#211633;
+  --card:#34234e;
+  --text:#fff;
+  --muted:#d1c2df;
+  --border:#60447d;
+  --accent:#d3a9ff;
+  --soft:#4b3563;
 }
 
-body.vip .vip-box{
-  background:linear-gradient(135deg,#241535,#49305e);
+body.neon-theme{
+  --bg:#070910;
+  --card:#111521;
+  --text:#fff;
+  --muted:#a9b2c8;
+  --border:#293247;
+  --accent:#ff55dc;
+  --soft:#32203c;
 }
 
+body.space-theme{
+  --bg:#020617;
+  --card:#10152b;
+  --text:#fff;
+  --muted:#aeb6d0;
+  --border:#293158;
+  --accent:#9d8cff;
+  --soft:#28254a;
+}
 
-/* Mobile */
+body.glass3d-theme{
+  --bg:#171222;
+  --card:#2b2140;
+  --text:#fff;
+  --muted:#c5b9d8;
+  --border:#564276;
+  --accent:#c4a3ff;
+  --soft:#3b2d55;
+}
 
-@media(max-width:600px){
+body.cortis-theme{
+  --bg:#101010;
+  --card:#1d1d1d;
+  --text:#fff;
+  --muted:#bdbdbd;
+  --border:#3b3b3b;
+  --accent:#fff;
+  --soft:#303030;
+}
 
-  header{
-    padding:16px 5%;
-  }
+body.bts-theme{
+  --bg:#170b22;
+  --card:#29143c;
+  --text:#fff;
+  --muted:#d4bddf;
+  --border:#633c78;
+  --accent:#d39cff;
+  --soft:#43245b;
+}
 
-  nav a{
-    margin-left:10px;
-  }
+body.blackpink-theme{
+  --bg:#0d080e;
+  --card:#211322;
+  --text:#fff;
+  --muted:#d0b5cc;
+  --border:#5b2856;
+  --accent:#ff65d7;
+  --soft:#43223f;
+}
 
-  .hero{
-    padding-top:50px;
-  }
+@media(max-width:700px){
+  header{padding:15px 5%}
+  nav a{margin-left:8px;font-size:12px}
+  .theme-groups{grid-template-columns:1fr}
+  .hero{padding-top:45px}
+}
 
-  .timer-display{
-    font-size:40px;
-  }
-
-  .clock{
-    font-size:34px;
-  }
+@media(max-width:450px){
+  .theme-list{grid-template-columns:1fr 1fr}
+  .display{font-size:36px}
 }
 </style>
 </head>
 
-
 <body>
 
 <header>
-
-  <div class="logo">
-    FOCUS<span>LYY</span>
-  </div>
+  <div class="logo">FOCUS<span>LYY</span></div>
 
   <nav>
     <a href="#tools">Tools</a>
     <a href="#themes">Themes</a>
     <a href="#vip">VIP</a>
   </nav>
-
 </header>
 
 
 <section class="hero">
 
-  <div class="trial">
-    ✨ 3 DAYS FREE TRIAL
-  </div>
+  <div class="badge">✨ 3 DAYS FREE TRIAL</div>
 
   <h1>
     Focus better.<br>
@@ -421,8 +580,8 @@ body.vip .vip-box{
   </h1>
 
   <p>
-    Your simple study companion for focused sessions,
-    time management and distraction-free studying.
+    A calm study space with everything you need
+    to make your study sessions more focused.
   </p>
 
 </section>
@@ -430,132 +589,205 @@ body.vip .vip-box{
 
 <main class="container">
 
+<!-- TRIAL -->
+
+<div class="trial">
+
+  <div class="trial-title">
+    🎁 Your FOCUSLYY Free Trial
+  </div>
+
+  <div id="trialText">
+    Starting trial...
+  </div>
+
+</div>
+
+
+<!-- TOOLS -->
+
 <section id="tools" class="grid">
 
+  <!-- CLOCK -->
 
-<!-- CLOCK -->
+  <div class="card">
 
-<div class="card">
+    <h2>🕐 Clock</h2>
 
-  <h2>🕐 Clock</h2>
+    <p class="desc">
+      Keep track of the time while studying.
+    </p>
 
-  <p class="description">
-    Keep track of the current time while studying.
-  </p>
+    <div class="display" id="clock">
+      00:00:00
+    </div>
 
-  <div class="clock" id="clock">
-    00:00:00
-  </div>
-
-  <div class="date" id="date">
-    Loading...
-  </div>
-
-</div>
-
-
-<!-- STOPWATCH -->
-
-<div class="card timer">
-
-  <h2>⏱ Stopwatch</h2>
-
-  <p class="description">
-    Track exactly how long you study.
-  </p>
-
-  <div class="timer-display" id="stopwatch">
-    00:00:00
-  </div>
-
-  <button onclick="startStopwatch()">
-    Start
-  </button>
-
-  <button class="secondary" onclick="pauseStopwatch()">
-    Pause
-  </button>
-
-  <button class="secondary" onclick="resetStopwatch()">
-    Reset
-  </button>
-
-</div>
-
-
-<!-- POMODORO -->
-
-<div class="card timer locked">
-
-  <div class="lock-overlay" id="pomLock">
-
-    <strong>🔒 VIP Feature</strong>
-
-    <span>
-      Unlock Pomodoro with FOCUSLYY VIP.
-    </span>
-
-    <button onclick="showPayment()">
-      Unlock VIP
-    </button>
+    <div class="date" id="date">
+      Loading...
+    </div>
 
   </div>
 
-  <h2>🍅 Pomodoro</h2>
 
-  <p class="description">
-    25 minutes of focus followed by a break.
-  </p>
+  <!-- STOPWATCH -->
 
-  <div class="timer-display" id="pomodoro">
-    25:00
+  <div class="card timer">
+
+    <h2>⏱️ Stopwatch</h2>
+
+    <p class="desc">
+      Track your study session.
+    </p>
+
+    <div class="display" id="stopwatch">
+      00:00:00
+    </div>
+
+    <button onclick="startStopwatch()">Start</button>
+    <button class="secondary" onclick="pauseStopwatch()">Pause</button>
+    <button class="secondary" onclick="resetStopwatch()">Reset</button>
+
   </div>
 
-  <button onclick="startPomodoro()">
-    Start
-  </button>
 
-  <button class="secondary" onclick="pausePomodoro()">
-    Pause
-  </button>
+  <!-- POMODORO -->
 
-  <button class="secondary" onclick="resetPomodoro()">
-    Reset
-  </button>
+  <div class="card timer locked">
 
-</div>
+    <div class="lock-screen">
+
+      <strong>🔒 VIP Pomodoro</strong>
+
+      <span>
+        Unlock Pomodoro with FOCUSLYY VIP.
+      </span>
+
+      <button onclick="showPayment()">
+        Unlock VIP
+      </button>
+
+    </div>
+
+    <h2>🍅 Pomodoro</h2>
+
+    <p class="desc">
+      25 minutes of focus followed by a break.
+    </p>
+
+    <div class="display" id="pomodoro">
+      25:00
+    </div>
+
+    <button onclick="startPomodoro()">Start</button>
+    <button class="secondary" onclick="pausePomodoro()">Pause</button>
+    <button class="secondary" onclick="resetPomodoro()">Reset</button>
+
+  </div>
 
 </section>
 
 
 <!-- THEMES -->
 
-<section id="themes" class="card themes">
+<section id="themes" class="card section theme-card">
 
-  <h2>🎨 Background Styles</h2>
+  <h2>🎨 Study Themes</h2>
 
-  <p class="description">
-    Pick the atmosphere you like studying in.
+  <p class="desc">
+    Simple themes are free. Premium themes are available with VIP.
   </p>
 
-  <div class="theme-buttons">
 
-    <button
-      class="secondary"
-      onclick="setSoftTheme()">
-      ☁️ Soft
-    </button>
+  <div class="theme-groups">
 
-    <button
-      class="secondary"
-      onclick="setDarkTheme()">
-      🌙 Dark
-    </button>
+    <!-- FREE -->
 
-    <button
-      onclick="setVIPTheme()">
-      ✨ VIP Theme
-    </button>
+    <div class="theme-group">
+
+      <h3>🆓 Free Themes</h3>
+
+      <div class="theme-list">
+
+        <div class="theme free1"
+             onclick="setTheme('')">
+          ☀️ Light
+        </div>
+
+        <div class="theme dark1"
+             onclick="setTheme('dark')">
+          🌙 Dark
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIP -->
+
+    <div class="theme-group">
+
+      <h3>💎 VIP Themes</h3>
+
+      <div class="theme-list">
+
+        <div class="theme aurora"
+             onclick="vipTheme('aurora-theme')">
+          🌌 Aurora Night
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme glass"
+             onclick="vipTheme('glass-theme')">
+          🪞 Midnight Glass
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme lavender"
+             onclick="vipTheme('lavender-theme')">
+          💜 Lavender Dream
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme neon"
+             onclick="vipTheme('neon-theme')">
+          🌃 Neon City
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme space"
+             onclick="vipTheme('space-theme')">
+          🪐 3D Space
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme glass3d"
+             onclick="vipTheme('glass3d-theme')">
+          🔮 3D Glass
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme cortis"
+             onclick="vipTheme('cortis-theme')">
+          🎵 CORTIS-inspired
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme bts"
+             onclick="vipTheme('bts-theme')">
+          💜 BTS-inspired
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+        <div class="theme blackpink"
+             onclick="vipTheme('blackpink-theme')">
+          🖤💗 BLACKPINK-inspired
+          <span class="vip-lock">🔒 VIP</span>
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -566,112 +798,90 @@ body.vip .vip-box{
 
 <section id="vip" class="vip-section">
 
-<div class="vip-box">
+  <div class="vip-box">
 
-  <div class="trial">
-    FOCUSLYY VIP
-  </div>
-
-  <h2>
-    Upgrade your focus.
-  </h2>
-
-  <p>
-    Try FOCUSLYY free for 3 days, then unlock
-    the full VIP experience.
-  </p>
-
-  <div class="price">
-    ₹100 <small>/ 30 days</small>
-  </div>
-
-
-  <div class="features">
-
-    <div class="feature">
-      🍅 Pomodoro Timer
+    <div class="badge">
+      FOCUSLYY VIP
     </div>
 
-    <div class="feature">
-      ✨ Premium Themes
+    <h2>Upgrade your focus.</h2>
+
+    <p>
+      Try FOCUSLYY free for 3 days, then unlock
+      the premium experience for ₹100 / 30 days.
+    </p>
+
+    <div class="price">
+      ₹100 <small>/ 30 days</small>
     </div>
 
-    <div class="feature">
-      🎨 VIP Backgrounds
+
+    <div class="features">
+
+      <div class="feature">🍅 Pomodoro</div>
+      <div class="feature">🌌 Aurora Night</div>
+      <div class="feature">🪞 Midnight Glass</div>
+      <div class="feature">💜 Lavender Dream</div>
+      <div class="feature">🌃 Neon City</div>
+      <div class="feature">🪐 3D Space</div>
+      <div class="feature">🎵 CORTIS-inspired</div>
+      <div class="feature">💜 BTS-inspired</div>
+      <div class="feature">🖤💗 BLACKPINK-inspired</div>
+
     </div>
 
-    <div class="feature">
-      ⏱ Focus Tools
-    </div>
-
-    <div class="feature">
-      📚 Study Sessions
-    </div>
-
-    <div class="feature">
-      🔒 VIP Features
-    </div>
-
-  </div>
+    <button onclick="showPayment()">
+      Get VIP — ₹100
+    </button>
 
 
-  <button onclick="showPayment()">
-    Get VIP — ₹100
-  </button>
+    <!-- PAYMENT -->
 
+    <div class="payment" id="payment">
 
-  <!-- PAYMENT -->
+      <div class="payment-box">
 
-  <div class="payment" id="payment">
+        <h2>💳 VIP Payment</h2>
 
-    <div class="payment-box">
+        <p style="margin-top:10px">
+          Pay ₹100 for 30 days of VIP access.
+        </p>
 
-      <h2>💳 VIP Payment</h2>
+        <!--
+        QR WILL BE ADDED LATER.
 
-      <p style="margin-top:10px">
-        Pay ₹100 for 30 days of VIP access.
-      </p>
+        When you upload your QR image to GitHub,
+        replace YOUR-QR-IMAGE.png with its filename.
+        -->
 
+        <img
+          class="qr"
+          src="YOUR-QR-IMAGE.png"
+          alt="FOCUSLYY payment QR"
+        >
 
-      <!--
-      IMPORTANT:
-      Upload your QR image to the repository,
-      then replace YOUR-QR-IMAGE.png with
-      the exact filename.
-      -->
+        <p>
+          After completing the payment, keep your
+          transaction/reference details.
+        </p>
 
-      <img
-        class="qr"
-        src="YOUR-QR-IMAGE.png"
-        alt="FOCUSLYY VIP payment QR"
-      >
+        <button onclick="submitPayment()">
+          I've completed payment
+        </button>
 
+        <div id="paymentStatus"></div>
 
-      <p>
-        After completing payment, keep your
-        transaction details available for verification.
-      </p>
+        <p class="note">
+          This button does not automatically verify a payment.
+          VIP access should only be activated after payment
+          has been manually checked.
+        </p>
 
-
-      <button onclick="submitPayment()">
-        I've completed payment
-      </button>
-
-
-      <div id="paymentStatus"></div>
-
-
-      <p class="note">
-        Payment is not automatically verified by this
-        webpage. VIP access should only be activated
-        after the payment has been checked.
-      </p>
+      </div>
 
     </div>
 
   </div>
-
-</div>
 
 </section>
 
@@ -686,6 +896,73 @@ body.vip .vip-box{
 <script>
 
 /* =========================
+   3-DAY TRIAL
+========================= */
+
+const TRIAL_LENGTH =
+  3 * 24 * 60 * 60 * 1000;
+
+let trialStart =
+  localStorage.getItem("focuslyy_trial_start");
+
+if(!trialStart){
+
+  trialStart = Date.now().toString();
+
+  localStorage.setItem(
+    "focuslyy_trial_start",
+    trialStart
+  );
+}
+
+function updateTrial(){
+
+  const start =
+    Number(
+      localStorage.getItem("focuslyy_trial_start")
+    );
+
+  const remaining =
+    TRIAL_LENGTH - (Date.now() - start);
+
+  const text =
+    document.getElementById("trialText");
+
+  if(remaining <= 0){
+
+    text.innerHTML =
+      "⛔ Your 3-day free trial has ended.";
+
+    return;
+  }
+
+  const days =
+    Math.floor(remaining / 86400000);
+
+  const hours =
+    Math.floor(
+      (remaining % 86400000) / 3600000
+    );
+
+  const minutes =
+    Math.floor(
+      (remaining % 3600000) / 60000
+    );
+
+  const seconds =
+    Math.floor(
+      (remaining % 60000) / 1000
+    );
+
+  text.innerHTML =
+    `✨ ${days}d ${hours}h ${minutes}m ${seconds}s remaining`;
+}
+
+setInterval(updateTrial,1000);
+updateTrial();
+
+
+/* =========================
    CLOCK
 ========================= */
 
@@ -693,20 +970,21 @@ function updateClock(){
 
   const now = new Date();
 
-  document.getElementById("clock").textContent =
+  document.getElementById("clock")
+    .textContent =
     now.toLocaleTimeString();
 
-  document.getElementById("date").textContent =
+  document.getElementById("date")
+    .textContent =
     now.toLocaleDateString(undefined,{
       weekday:"long",
-      day:"numeric",
+      year:"numeric",
       month:"long",
-      year:"numeric"
+      day:"numeric"
     });
 }
 
 setInterval(updateClock,1000);
-
 updateClock();
 
 
@@ -717,41 +995,45 @@ updateClock();
 let stopwatchSeconds = 0;
 let stopwatchInterval = null;
 
-function formatStopwatch(seconds){
+function formatTime(seconds){
 
-  const hours =
+  const h =
     Math.floor(seconds / 3600);
 
-  const minutes =
+  const m =
     Math.floor((seconds % 3600) / 60);
 
-  const secs =
+  const s =
     seconds % 60;
 
-  return String(hours).padStart(2,"0")
-    + ":" +
-    String(minutes).padStart(2,"0")
-    + ":" +
-    String(secs).padStart(2,"0");
+  return (
+    String(h).padStart(2,"0") +
+    ":" +
+    String(m).padStart(2,"0") +
+    ":" +
+    String(s).padStart(2,"0")
+  );
 }
 
 function updateStopwatch(){
 
-  document.getElementById("stopwatch").textContent =
-    formatStopwatch(stopwatchSeconds);
+  document.getElementById("stopwatch")
+    .textContent =
+    formatTime(stopwatchSeconds);
 }
 
 function startStopwatch(){
 
   if(stopwatchInterval) return;
 
-  stopwatchInterval = setInterval(function(){
+  stopwatchInterval =
+    setInterval(function(){
 
-    stopwatchSeconds++;
+      stopwatchSeconds++;
 
-    updateStopwatch();
+      updateStopwatch();
 
-  },1000);
+    },1000);
 }
 
 function pauseStopwatch(){
@@ -775,7 +1057,9 @@ function resetStopwatch(){
    POMODORO
 ========================= */
 
-let pomodoroSeconds = 25 * 60;
+let pomodoroSeconds =
+  25 * 60;
+
 let pomodoroInterval = null;
 
 function updatePomodoro(){
@@ -786,9 +1070,10 @@ function updatePomodoro(){
   const seconds =
     pomodoroSeconds % 60;
 
-  document.getElementById("pomodoro").textContent =
-    String(minutes).padStart(2,"0")
-    + ":" +
+  document.getElementById("pomodoro")
+    .textContent =
+    String(minutes).padStart(2,"0") +
+    ":" +
     String(seconds).padStart(2,"0");
 }
 
@@ -803,25 +1088,25 @@ function startPomodoro(){
 
   if(pomodoroInterval) return;
 
-  pomodoroInterval = setInterval(function(){
+  pomodoroInterval =
+    setInterval(function(){
 
-    if(pomodoroSeconds > 0){
+      if(pomodoroSeconds <= 0){
+
+        pausePomodoro();
+
+        alert(
+          "🍅 Pomodoro complete! Take a short break."
+        );
+
+        return;
+      }
 
       pomodoroSeconds--;
 
       updatePomodoro();
 
-    }else{
-
-      pausePomodoro();
-
-      alert(
-        "🎉 Pomodoro complete! Take a short break."
-      );
-
-    }
-
-  },1000);
+    },1000);
 }
 
 function pausePomodoro(){
@@ -835,60 +1120,53 @@ function resetPomodoro(){
 
   pausePomodoro();
 
-  pomodoroSeconds = 25 * 60;
+  pomodoroSeconds =
+    25 * 60;
 
   updatePomodoro();
 }
 
 
 /* =========================
-   THEMES
+   VIP / THEMES
 ========================= */
 
-function setSoftTheme(){
+/*
+   This is currently a demo VIP state.
 
-  document.body.classList.remove(
-    "dark",
-    "vip"
-  );
+   Real payment verification should NOT be
+   handled only by JavaScript/localStorage.
+*/
+
+let vipActive = false;
+
+
+function setTheme(theme){
+
+  document.body.className = theme;
 
   localStorage.setItem(
-    "focuslyyTheme",
-    "soft"
+    "focuslyy_theme",
+    theme
   );
 }
 
 
-function setDarkTheme(){
-
-  document.body.classList.remove("vip");
-
-  document.body.classList.add("dark");
-
-  localStorage.setItem(
-    "focuslyyTheme",
-    "dark"
-  );
-}
-
-
-function setVIPTheme(){
+function vipTheme(theme){
 
   if(!vipActive){
+
+    alert(
+      "💎 VIP Theme\n\n" +
+      "This theme is available with FOCUSLYY VIP."
+    );
 
     showPayment();
 
     return;
   }
 
-  document.body.classList.remove("dark");
-
-  document.body.classList.add("vip");
-
-  localStorage.setItem(
-    "focuslyyTheme",
-    "vip"
-  );
+  setTheme(theme);
 }
 
 
@@ -915,51 +1193,28 @@ function submitPayment(){
   document.getElementById(
     "paymentStatus"
   ).textContent =
-    "✓ Payment submitted for verification.";
-
+    "✓ Payment submitted for verification. VIP will be activated after the payment is checked.";
 }
 
 
 /* =========================
-   VIP STATE
-========================= */
-
-/*
-This is only a local demonstration state.
-It does NOT verify a real payment.
-
-For a real launch, VIP activation needs
-a secure payment-verification system.
-*/
-
-let vipActive = false;
-
-
-/* =========================
-   LOAD SAVED THEME
+   LOAD THEME
 ========================= */
 
 const savedTheme =
-  localStorage.getItem("focuslyyTheme");
+  localStorage.getItem(
+    "focuslyy_theme"
+  );
 
-if(savedTheme === "dark"){
-
-  document.body.classList.add("dark");
-
-}else if(savedTheme === "vip" && vipActive){
-
-  document.body.classList.add("vip");
-
-}else{
-
-  setSoftTheme();
+if(savedTheme){
+  document.body.className =
+    savedTheme;
 }
 
 
 /* INITIALIZE */
 
 updateStopwatch();
-
 updatePomodoro();
 
 </script>
