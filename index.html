@@ -126,6 +126,51 @@ body.theme-3d::before{background:#407cff;transform:rotate(25deg)}
 body.theme-3d::after{background:#a83cff}
 
 @media(max-width:700px){header{padding:15px 18px}.navbtn{display:none}.grid{grid-template-columns:1fr}.feature{grid-template-columns:1fr}main{padding-top:25px}.card{border-radius:20px}.display{font-size:44px}}
+
+
+/* FOCUSLYY fullscreen tool panels */
+.focuslyy-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;
+background:rgba(5,7,15,.78);backdrop-filter:blur(16px);padding:18px}
+.focuslyy-modal.open{display:flex}
+.focuslyy-modal-box{position:relative;width:min(980px,96vw);max-height:92vh;overflow:auto;padding:30px;
+border-radius:28px;background:var(--card,#171b31);border:1px solid rgba(255,255,255,.14);
+box-shadow:0 30px 100px rgba(0,0,0,.5)}
+.focuslyy-close{position:absolute;right:16px;top:14px;width:40px;height:40px;border-radius:50%;
+border:0;background:rgba(255,255,255,.08);color:inherit;font-size:25px;cursor:pointer}
+.focuslyy-modal h2{text-align:center;font-size:30px;margin:4px 0 8px}
+.focuslyy-sub{text-align:center;color:var(--muted);margin:0 0 22px}
+.focuslyy-big-time{text-align:center;font-size:clamp(55px,10vw,110px);font-weight:900;margin:30px 0}
+.focuslyy-theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+.focuslyy-theme-card{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:10px;
+background:rgba(255,255,255,.04);cursor:pointer;transition:.18s}
+.focuslyy-theme-card:hover{transform:translateY(-3px);border-color:#aaa0ff}
+.focuslyy-theme-preview{height:95px;border-radius:12px;margin-bottom:9px}
+.focuslyy-theme-card h4{margin:0 0 3px}
+.focuslyy-theme-card small{color:var(--muted)}
+.focuslyy-theme-card p{font-size:11px;line-height:1.4;color:var(--muted);margin:7px 0 0}
+
+/* Calm Music + Gen */
+.focuslyy-sound-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.focuslyy-sound-card{padding:16px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.045);cursor:pointer}
+.focuslyy-sound-card:hover{transform:translateY(-2px)}
+.focuslyy-sound-icon{font-size:30px;margin-bottom:8px}
+.focuslyy-gen-input{width:100%;min-height:90px;resize:vertical;border-radius:16px;border:1px solid rgba(255,255,255,.14);
+background:rgba(255,255,255,.06);color:inherit;padding:14px;font:inherit;box-sizing:border-box}
+.focuslyy-gen-result{margin-top:18px;padding:18px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.focuslyy-gen-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.focuslyy-gen-tag{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px}
+.focuslyy-range{width:100%}
+
+.focuslyy-breath-wrap{text-align:center;padding:12px 0 24px}
+.focuslyy-breath-circle{width:190px;height:190px;border-radius:50%;margin:18px auto;
+display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(180,170,255,.45),rgba(100,120,220,.08));
+border:1px solid rgba(255,255,255,.16);font-size:20px;font-weight:800;
+box-shadow:0 0 45px rgba(150,140,255,.18)}
+.focuslyy-breath-circle.inhale{animation:focuslyyInhale 4s ease-in-out forwards}
+.focuslyy-breath-circle.exhale{animation:focuslyyExhale 6s ease-in-out forwards}
+@keyframes focuslyyInhale{from{transform:scale(.72)}to{transform:scale(1.08)}}
+@keyframes focuslyyExhale{from{transform:scale(1.08)}to{transform:scale(.72)}}
+.focuslyy-breath-count{font-size:42px;font-weight:900}
 </style>
 </head>
 <body>
@@ -154,22 +199,22 @@ body.theme-3d::after{background:#a83cff}
 </section>
 
 <section class="grid">
-  <div class="card">
+  <div class="card" onclick="openFocuslyyModal('clock')" style="cursor:pointer">
     <div class="cardhead"><h2>🕐 Clock</h2><span class="tag">FREE</span></div>
     <div class="display" id="clock">00:00:00</div>
     <div class="sub" id="date">Loading…</div>
   </div>
 
-  <div class="card">
+  <div class="card" onclick="openFocuslyyModal('stopwatch')" style="cursor:pointer">
     <div class="cardhead"><h2>⏱ Stopwatch</h2><span class="tag">FREE</span></div>
     <div class="display" id="sw">00:00:00</div>
     <div class="actions">
-      <button class="primary" id="swStart" onclick="toggleSW()">Start</button>
-      <button class="secondary" onclick="resetSW()">Reset</button>
+      <button class="primary" id="swStart" onclick="event.stopPropagation();toggleSW()">Start</button>
+      <button class="secondary" onclick="event.stopPropagation();resetSW()">Reset</button>
     </div>
   </div>
 
-  <div class="card pomo">
+  <div class="card pomo" onclick="openFocuslyyModal('pomodoro')" style="cursor:pointer">
     <div class="cardhead">
       <h2>🍅 Pomodoro</h2>
       <span class="tag" id="pomoTag">VIP + TRIAL</span>
@@ -180,31 +225,38 @@ body.theme-3d::after{background:#a83cff}
       <br>Pomodoro is included in your 3-day free trial.
     </div>
     <div class="actions" style="margin-top:17px">
-      <select id="pomoPlan" onchange="setPomodoroPlan(this.value)" aria-label="Pomodoro duration">
+      <select id="pomoPlan" onchange="event.stopPropagation();setPomodoroPlan(this.value)" aria-label="Pomodoro duration">
 <option value="25">25 minutes</option>
 <option value="35">35 minutes</option>
 <option value="45">45 minutes</option>
 <option value="60">60 minutes</option>
 <option value="90">90 minutes</option>
 </select>
-<button class="primary" id="pomoStart" onclick="togglePomodoro()">Start</button>
-      <button class="secondary" onclick="resetPomodoro()">Reset</button>
+<button class="primary" id="pomoStart" onclick="event.stopPropagation();togglePomodoro()">Start</button>
+      <button class="secondary" onclick="event.stopPropagation();resetPomodoro()">Reset</button>
     </div>
   </div>
 
-  <div class="card">
+  
+<div class="card" onclick="openFocuslyyModal('music')" style="cursor:pointer">
+  <div class="cardhead"><h2>🎧 Calm Music</h2><span class="pill">FOCUS</span></div>
+  <p class="locktext">Rain, ocean, forest, café and other calm study sounds.</p>
+  <div class="theme-open-note">✨ Tap to open the calm sound studio</div>
+</div>
+<div class="card" onclick="openFocuslyyModal('themes')" style="cursor:pointer">
     <div class="cardhead"><h2>🎨 Study Backgrounds</h2><span class="tag">FREE + VIP</span></div>
     <p class="locktext">Free styles are always available. VIP styles work during your 3-day trial.</p>
     <div class="selectrow">
-      <select id="themeSelect" onchange="changeTheme(this.value)">
-        <option value="default">Midnight · FREE</option>
-        <option value="soft">Soft Lavender · FREE</option>
-        <option value="blue">Ocean Focus · FREE</option>
-        <option value="cream">Warm Study · FREE</option>
-        <option value="cortis">CORTIS · VIP</option>
-        <option value="bts">BTS · VIP</option>
-        <option value="blackpink">BLACKPINK · VIP</option>
-        <option value="3d">3D · VIP</option>
+      <select id="themeSelect" onchange="event.stopPropagation();changeTheme(this.value)">
+        <option value="default">Midnight Dark · FREE</option>
+        <option value="light">Pure Light · FREE</option>
+        <option value="soft">Soft Lavender · VIP</option>
+        <option value="blue">Ocean Focus · VIP</option>
+        <option value="cream">Warm Study · VIP</option>
+        <option value="cortis">Soft Neon · VIP</option>
+        <option value="bts">Ice Blue · VIP</option>
+        <option value="blackpink">Rose Glow · VIP</option>
+        <option value="3d">Aurora 3D · VIP</option>
       </select>
     </div>
     <div class="actions" style="margin-top:16px">
@@ -230,6 +282,24 @@ body.theme-3d::after{background:#a83cff}
 </section>
 </main>
 
+<div id="focuslyyModal" class="focuslyy-modal" onclick="if(event.target===this)closeFocuslyyModal()">
+  <div class="focuslyy-modal-box">
+    <button class="focuslyy-close" onclick="closeFocuslyyModal()">×</button>
+    <div id="focuslyyModalContent"></div>
+  </div>
+</div>
+
+<div class="card" onclick="openFocuslyyModal('gen')" style="cursor:pointer">
+  <div class="cardhead"><h2>✨ Gen</h2><span class="pill">NEW</span></div>
+  <p class="locktext">Generate a custom study ambience from a simple mood prompt.</p>
+  <div class="theme-open-note">✨ Tap to open Gen Studio</div>
+</div>
+
+<div class="card" onclick="openFocuslyyModal('meditation')" style="cursor:pointer">
+  <div class="cardhead"><h2>🧘 Meditation</h2><span class="pill">BREATHE</span></div>
+  <p class="locktext">A simple inhale-and-exhale breathing guide for study breaks and calm.</p>
+  <div class="theme-open-note">🌿 Tap to open Meditation</div>
+</div>
 <footer>FOCUSLYY · Study better, one session at a time.</footer>
 
 <div class="modal" id="vipModal">
@@ -551,19 +621,20 @@ function resetPomodoro(){
 renderPomodoro();
 
 /* ---------- Themes ---------- */
-const vipThemes=['cortis','bts','blackpink','3d'];
+const vipThemes=['soft','blue','cream','cortis','bts','blackpink','3d'];
 
 function applyTheme(v){
   const root=document.documentElement;
 
   document.body.classList.remove(
-    'theme-default','theme-soft','theme-blue','theme-cream',
+    'theme-default','theme-light','theme-soft','theme-blue','theme-cream',
     'theme-cortis','theme-bts','theme-blackpink','theme-3d'
   );
   document.body.classList.add('theme-'+v);
 
   const colors={
     default:['#0d1020','#171b31','#202642'],
+    light:['#f7f8fc','#ffffff','#eef1f8'],
     soft:['#171225','#211b38','#2a2146'],
     blue:['#061522','#112438','#17324f'],
     cream:['#211d19','#302923','#40352b'],
@@ -651,6 +722,536 @@ document.addEventListener('keydown',e=>{
 document.getElementById('vipModal').addEventListener('click',e=>{
   if(e.target.id==='vipModal') closeVIP();
 });
+
+/* ---------- FOCUSLYY Fullscreen Tools ---------- */
+function closeFocuslyyModal(){
+  const modal=document.getElementById('focuslyyModal');
+  if(modal) modal.classList.remove('open');
+}
+
+function openFocuslyyModal(tool){
+  const modal=document.getElementById('focuslyyModal');
+  const box=document.getElementById('focuslyyModalContent');
+  if(!modal||!box)return;
+
+  if(tool==='clock'){
+    box.innerHTML=`<h2>🕐 Clock</h2>
+      <p class="focuslyy-sub">Your current local time.</p>
+      <div class="focuslyy-big-time" id="modalClock">--:--:--</div>
+      <p class="focuslyy-sub" id="modalDate"></p>`;
+    updateModalClock();
+
+  }else if(tool==='stopwatch'){
+    box.innerHTML=`<h2>⏱ Stopwatch</h2>
+      <p class="focuslyy-sub">Track your study session.</p>
+      <div class="focuslyy-big-time" id="modalSW">00:00:00</div>
+      <div class="actions" style="justify-content:center">
+        <button class="primary" onclick="event.stopPropagation();toggleSW()">Start / Pause</button>
+        <button class="secondary" onclick="event.stopPropagation();resetSW()">Reset</button>
+      </div>`;
+    updateModalSW();
+
+  }else if(tool==='pomodoro'){
+    box.innerHTML=`<h2>🍅 Pomodoro</h2>
+      <p class="focuslyy-sub">Choose a duration. Breaks are 5 minutes each.</p>
+      <div class="focuslyy-big-time" id="modalPomo">25:00</div>
+      <p class="focuslyy-sub" id="modalPomoMode">FOCUS</p>
+      <div class="actions" style="justify-content:center;flex-wrap:wrap">
+        <select id="modalPomoPlan" onchange="event.stopPropagation();setPomodoroPlan(this.value)">
+          <option value="25">25 minutes</option>
+          <option value="35">35 minutes</option>
+          <option value="45">45 minutes</option>
+          <option value="60">60 minutes</option>
+          <option value="90">90 minutes</option>
+        </select>
+        <button class="primary" onclick="event.stopPropagation();togglePomodoro()">Start / Pause</button>
+        <button class="secondary" onclick="event.stopPropagation();resetPomodoro()">Reset</button>
+      </div>`;
+    document.getElementById('modalPomoPlan').value=String(pomoPlanMinutes);
+    updateModalPomo();
+
+  }else{
+    const tile=(v,n,type,desc,bg)=>`<div class="focuslyy-theme-card" onclick="event.stopPropagation();chooseModalTheme('${v}')">
+      <div class="focuslyy-theme-preview" style="background:${bg}"></div>
+      <h4>${n}</h4><small>${type}</small><p>${desc}</p>
+    </div>`;
+
+    box.innerHTML=`<h2>🎨 Study Backgrounds</h2>
+      <p class="focuslyy-sub">Only Dark and Light are FREE. All other backgrounds are VIP.</p>
+      <div class="focuslyy-theme-grid">
+        ${tile('default','Midnight Dark','FREE','Deep, calm and distraction-free.','linear-gradient(135deg,#0d1020,#202642)')}
+        ${tile('light','Pure Light','FREE','Clean, bright and minimal.','linear-gradient(135deg,#ffffff,#dfeaff)')}
+        ${tile('soft','Soft Lavender','VIP','Gentle lavender atmosphere for calm study.','linear-gradient(135deg,#754c91,#171225)')}
+        ${tile('blue','Ocean Focus','VIP','Cool blue atmosphere for focused work.','linear-gradient(135deg,#176f96,#061522)')}
+        ${tile('cream','Warm Study','VIP','Warm neutral tones for cozy study sessions.','linear-gradient(135deg,#916b35,#211d19)')}
+        ${tile('cortis','Soft Neon','VIP','A soft neon glow without harsh brightness.','linear-gradient(135deg,#ff6338,#160d0b)')}
+        ${tile('bts','Ice Blue','VIP','A sleek cool blue-violet atmosphere.','linear-gradient(135deg,#a84dff,#100817)')}
+        ${tile('blackpink','Rose Glow','VIP','Elegant rose-pink glow for night study.','linear-gradient(135deg,#ff3c9d,#140710)')}
+        ${tile('3d','Aurora 3D','VIP','Dimensional blue-purple study atmosphere.','linear-gradient(135deg,#3f62c4,#080b18)')}
+      </div>`;
+  }
+  modal.classList.add('open');
+}
+
+function chooseModalTheme(value){
+  if(vipThemes.includes(value) && !trialActive()){
+    openVIP();
+    return;
+  }
+  changeTheme(value);
+  closeFocuslyyModal();
+}
+
+function updateModalClock(){
+  const e=document.getElementById('modalClock');
+  const d=document.getElementById('modalDate');
+  if(!e)return;
+  const now=new Date();
+  e.textContent=now.toLocaleTimeString('en-IN',{hour12:false});
+  if(d)d.textContent=now.toLocaleDateString('en-IN',{
+    weekday:'long',day:'numeric',month:'long',year:'numeric'
+  });
+}
+
+function updateModalSW(){
+  const e=document.getElementById('modalSW');
+  if(!e)return;
+  const total=Math.floor(sw/1000);
+  const h=Math.floor(total/3600);
+  const m=Math.floor((total%3600)/60);
+  const s=total%60;
+  e.textContent=[h,m,s].map(x=>String(x).padStart(2,'0')).join(':');
+}
+
+function updateModalPomo(){
+  const e=document.getElementById('modalPomo');
+  const mode=document.getElementById('modalPomoMode');
+  if(!e)return;
+  e.textContent=`${String(Math.floor(pomoSeconds/60)).padStart(2,'0')}:${String(pomoSeconds%60).padStart(2,'0')}`;
+  if(mode)mode.textContent=pomoMode==='focus'?'FOCUS':'BREAK';
+  const select=document.getElementById('modalPomoPlan');
+  if(select)select.value=String(pomoPlanMinutes);
+}
+
+setInterval(function(){
+  updateModalClock();
+  updateModalSW();
+  updateModalPomo();
+},250);
+
+
+/* ---------- FOCUSLYY Calm Music Studio ---------- */
+let calmAudioCtx=null;
+let calmNodes=[];
+let calmPlaying=false;
+let calmType='rain';
+let calmMaster=null;
+
+const calmPresets={
+  rain:{name:'Rain',icon:'🌧️',desc:'Soft rainfall for a quiet study atmosphere.',access:'FREE'},
+  cafe:{name:'Café',icon:'☕',desc:'Warm café ambience for relaxed studying.',access:'FREE'},
+  ocean:{name:'Ocean',icon:'🌊',desc:'Slow waves for relaxed concentration.',access:'VIP'},
+  forest:{name:'Forest',icon:'🌲',desc:'A gentle natural ambience.',access:'VIP'},
+  birds:{name:'Birds Chirping',icon:'🐦',desc:'Gentle birdsong for a peaceful nature mood.',access:'VIP'},
+  fireplace:{name:'Fireplace',icon:'🔥',desc:'Soft crackle-like study ambience.',access:'VIP'},
+  night:{name:'Night',icon:'🌙',desc:'A quiet nighttime atmosphere.',access:'VIP'}
+};
+
+function stopCalmMusic(){
+  calmNodes.forEach(n=>{try{n.stop?.()}catch(e){} try{n.disconnect?.()}catch(e){}});
+  calmNodes=[];
+  if(calmMaster){try{calmMaster.disconnect()}catch(e){}}
+  calmPlaying=false;
+  const b=document.getElementById('calmPlayBtn');if(b)b.textContent='▶ Play';
+}
+
+function noiseBuffer(ctx){
+  const buffer=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);
+  const data=buffer.getChannelData(0);
+  for(let i=0;i<data.length;i++) data[i]=Math.random()*2-1;
+  return buffer;
+}
+
+async function startCalmMusic(type=calmType){
+  try{
+    stopCalmMusic();
+    calmType=type;
+
+    const AudioCtx=window.AudioContext||window.webkitAudioContext;
+    if(!AudioCtx){
+      alert('Your browser does not support built-in calm audio.');
+      return;
+    }
+
+    if(!calmAudioCtx) calmAudioCtx=new AudioCtx();
+    if(calmAudioCtx.state==='suspended') await calmAudioCtx.resume();
+
+    calmMaster=calmAudioCtx.createGain();
+    calmMaster.gain.value=Number(document.getElementById('calmVolume')?.value||0.22);
+    calmMaster.connect(calmAudioCtx.destination);
+
+    const ctx=calmAudioCtx;
+
+    // Continuous filtered noise = rain/ocean/forest/cafe/fire ambience.
+    const src=ctx.createBufferSource();
+    src.buffer=noiseBuffer(ctx);
+    src.loop=true;
+
+    const filter=ctx.createBiquadFilter();
+    const freq={
+      rain:1400, ocean:650, forest:900,
+      cafe:1800, birds:4200, fireplace:1050, night:380
+    }[type]||900;
+    filter.type='lowpass';
+    filter.frequency.value=freq;
+    filter.Q.value=0.4;
+
+    const noiseGain=ctx.createGain();
+    noiseGain.gain.value={
+      rain:.34, ocean:.27, forest:.16,
+      cafe:.55, birds:.075, fireplace:.24, night:.08
+    }[type]||.18;
+
+    src.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(calmMaster);
+    src.start();
+    calmNodes.push(src);
+
+    // Slow texture so the ambience is not just flat noise.
+    const osc=ctx.createOscillator();
+    const og=ctx.createGain();
+    osc.type='sine';
+    osc.frequency.value={
+      rain:0.55, ocean:0.22, forest:0.35,
+      cafe:0.12, birds:0.8, fireplace:0.65, night:0.08
+    }[type]||.3;
+    og.gain.value=.025;
+    osc.connect(og);
+    og.connect(calmMaster);
+    osc.start();
+    calmNodes.push(osc);
+
+    if(type==='birds'){
+      // Small, randomized high notes create a gentle birdsong texture.
+      const birdTimer=setInterval(()=>{
+        if(!calmPlaying || !calmAudioCtx)return;
+        const o=ctx.createOscillator(), g=ctx.createGain();
+        const now=ctx.currentTime;
+        o.type='sine';
+        o.frequency.setValueAtTime(1800+Math.random()*1800,now);
+        o.frequency.exponentialRampToValueAtTime(2500+Math.random()*1800,now+0.12);
+        g.gain.setValueAtTime(0.0001,now);
+        g.gain.exponentialRampToValueAtTime(0.035,now+0.025);
+        g.gain.exponentialRampToValueAtTime(0.0001,now+0.22);
+        o.connect(g).connect(calmMaster);
+        o.start(now);
+        o.stop(now+0.24);
+      },900+Math.random()*1100);
+      calmNodes.push({stop:()=>clearInterval(birdTimer)});
+    }
+
+    if(type==='cafe'){
+      // Warm room tone.
+      const cafeIntervals=[170,230,310,390];
+      cafeIntervals.forEach((hz)=>{
+        const co=ctx.createOscillator(), cg=ctx.createGain();
+        co.type='sine';
+        co.frequency.value=hz;
+        cg.gain.value=0.018;
+        co.connect(cg).connect(calmMaster);
+        co.start();
+        calmNodes.push(co);
+      });
+
+      // Very soft intermittent café-like texture.
+      const cafeTimer=setInterval(()=>{
+        if(!calmPlaying || !calmAudioCtx) return;
+        const o=ctx.createOscillator(), g=ctx.createGain();
+        const now=ctx.currentTime;
+        o.type='triangle';
+        o.frequency.setValueAtTime(350+Math.random()*500,now);
+        o.frequency.exponentialRampToValueAtTime(180+Math.random()*250,now+0.18);
+        g.gain.setValueAtTime(0.0001,now);
+        g.gain.exponentialRampToValueAtTime(0.035,now+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001,now+0.20);
+        o.connect(g).connect(calmMaster);
+        o.start(now);
+        o.stop(now+0.22);
+      },700+Math.random()*800);
+      calmNodes.push({stop:()=>clearInterval(cafeTimer)});
+    }
+
+    calmPlaying=true;
+    const b=document.getElementById('calmPlayBtn');
+    if(b)b.textContent='⏸ Pause';
+    const status=document.getElementById('calmStatus');
+    if(status)status.textContent='🔊 Playing';
+  }catch(err){
+    calmPlaying=false;
+    console.error('FOCUSLYY Calm Music:',err);
+    alert('The sound could not start. Please click Play again and make sure your browser is not blocking audio.');
+  }
+}
+
+function toggleCalmMusic(){
+  if(calmPlaying) stopCalmMusic();
+  else startCalmMusic(calmType);
+}
+
+function setCalmVolume(v){
+  if(calmMaster)calmMaster.gain.value=Number(v);
+}
+
+function renderCalmStudio(){
+  const c=document.getElementById('focuslyyModalContent');
+  c.innerHTML=`<h2>🎧 Calm Music</h2>
+    <p class="focuslyy-sub">Only Café and Rain are FREE. All other sounds are VIP.</p>
+    <div class="focuslyy-sound-grid">
+      ${Object.entries(calmPresets).map(([k,v])=>`
+        <div class="focuslyy-sound-card" onclick="event.stopPropagation();selectCalm('${k}')">
+          <div class="focuslyy-sound-icon">${v.icon}</div>
+          <b>${v.name}</b>
+          <div style="margin-top:5px;font-size:11px">${v.access==='FREE'?'🆓 FREE':'💎 VIP'}</div>
+          <p class="focuslyy-sub" style="text-align:left;font-size:11px;margin:6px 0 0">${v.desc}</p>
+        </div>`).join('')}
+    </div>
+    <div class="focuslyy-gen-result">
+      <div style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+        <div><b id="calmSelected">${calmPresets[calmType].icon} ${calmPresets[calmType].name}</b>
+          <div id="calmStatus" style="font-size:12px;color:var(--muted);margin-top:4px">Ready to play</div>
+        </div>
+        <button class="primary" id="calmPlayBtn" onclick="event.stopPropagation();toggleCalmMusic()">${calmPlaying?'⏸ Pause':'▶ Play'}</button>
+      </div>
+      <div style="margin-top:16px"><label>Volume</label>
+        <input id="calmVolume" class="focuslyy-range" type="range" min="0" max="0.8" step="0.01" value="0.45" oninput="setCalmVolume(this.value)">
+      </div>
+    </div>`;
+}
+
+function selectCalm(type){
+  const preset = calmPresets[type];
+  if(!preset) return;
+
+  if(preset.access === 'VIP' && !trialActive()){
+    openVIP();
+    return;
+  }
+
+  calmType = type;
+
+  const selected = document.getElementById('calmSelected');
+  if(selected) selected.textContent = `${preset.icon} ${preset.name}`;
+
+  // The click itself is a user gesture, so start the audio here.
+  startCalmMusic(type);
+}
+
+/* ---------- FOCUSLYY Gen Studio ----------
+   This is a real browser-side generator: the prompt is interpreted into
+   a generated study ambience preset and mapped to the built-in Web Audio engine.
+*/
+function generateStudyAmbience(){
+  const input=document.getElementById('genPrompt');
+  const result=document.getElementById('genResult');
+  if(!input||!result)return;
+
+  const text=input.value.trim().toLowerCase();
+  if(!text){
+    result.innerHTML=`<div class="focuslyy-gen-result">
+      <b>✨ Tell Gen what you want</b>
+      <p class="focuslyy-sub" style="text-align:left;margin:8px 0 0">
+        Try: <i>Zen mode for 25 minutes</i>, <i>rainy deep focus for 60 minutes</i>, or <i>café study</i>.
+      </p></div>`;
+    return;
+  }
+
+  let sound='rain',theme='default',timer='25',
+      reason='a calm, distraction-light starting setup';
+
+  if(/zen|calm|peaceful|meditation|relax|quiet/.test(text)){
+    sound='rain'; theme='default'; timer='25';
+    reason='a peaceful rain setup is a simple Zen-style starting point';
+  }else if(/ocean|sea|waves|beach/.test(text)){
+    sound='ocean';reason='slow waves can create a steady background';
+  }else if(/forest|nature|trees|woods/.test(text)){
+    sound='forest';reason='a natural ambience fits the mood';
+  }else if(/bird|birds|chirping|songbirds/.test(text)){
+    sound='birds';reason='gentle birdsong fits a peaceful natural mood';
+  }else if(/cafe|coffee|café/.test(text)){
+    sound='cafe';reason='soft café ambience suits a relaxed study atmosphere';
+  }else if(/fire|fireplace|cozy|warm/.test(text)){
+    sound='fireplace';reason='a warm ambience suits a cozy session';
+  }else if(/night|midnight|late/.test(text)){
+    sound='night';reason='a low-key night ambience suits late study';
+  }
+
+  if(/light|bright|day/.test(text))theme='light';
+  else if(/lavender|purple/.test(text))theme='soft';
+  else if(/blue|cool/.test(text))theme='blue';
+
+  if(/90|long|deep|exam|focus/.test(text))timer='90';
+  else if(/60|hour/.test(text))timer='60';
+  else if(/45/.test(text))timer='45';
+  else if(/35/.test(text))timer='35';
+
+  result.innerHTML=`<div class="focuslyy-gen-result">
+    <b>✨ Generated study setup</b>
+    <div class="focuslyy-gen-tags">
+      <span class="focuslyy-gen-tag">${calmPresets[sound].icon} ${calmPresets[sound].name}</span>
+      <span class="focuslyy-gen-tag">🎨 ${theme==='default'?'Midnight Dark':theme==='light'?'Pure Light':theme==='soft'?'Soft Lavender':'Ocean Focus'}</span>
+      <span class="focuslyy-gen-tag">🍅 ${timer} min</span>
+    </div>
+    <p class="focuslyy-sub" style="text-align:left;margin:12px 0 0">${reason}.</p>
+    <div class="actions" style="margin-top:14px">
+      <button class="primary" onclick="applyGeneratedSetup('${sound}','${theme}','${timer}')">▶ Apply Setup</button>
+      <button class="secondary" onclick="generateStudyAmbience()">↻ Generate Again</button>
+    </div>
+  </div>`;
+
+  // Apply automatically only when the generated choices are free.
+  const freeSound = calmPresets[sound] && calmPresets[sound].access==='FREE';
+  const freeTheme = !vipThemes.includes(theme);
+  if(freeSound && freeTheme){
+    applyGeneratedSetup(sound,theme,timer);
+  }
+}
+
+function applyGeneratedSetup(sound,theme,timer){
+  const preset = calmPresets[sound];
+
+  if(!preset){
+    alert('Please generate the setup again.');
+    return;
+  }
+
+  if(preset.access === 'VIP' && !trialActive()){
+    openVIP();
+    return;
+  }
+
+  if(vipThemes.includes(theme) && !trialActive()){
+    openVIP();
+    return;
+  }
+
+  // Apply the background.
+  changeTheme(theme);
+
+  // Apply the Pomodoro duration.
+  setPomodoroPlan(timer);
+
+  // Apply and immediately start the selected ambience.
+  calmType = sound;
+  startCalmMusic(sound);
+
+  // Update the selected-sound label if the music studio is open.
+  const selected = document.getElementById('calmSelected');
+  if(selected){
+    selected.textContent = `${preset.icon} ${preset.name}`;
+  }
+
+  const result = document.getElementById('genResult');
+  if(result){
+    result.innerHTML += `
+      <div style="margin-top:12px;padding:10px;border-radius:12px;background:rgba(114,223,156,.10);color:#72df9c">
+        ✓ Setup applied: ${preset.name} · ${timer} min
+      </div>`;
+  }
+}
+
+/* Extend the existing modal dispatcher without replacing the original tools. */
+const _oldOpenFocuslyyModal = window.openFocuslyyModal;
+window.openFocuslyyModal = function(tool){
+  if(tool==='music'){
+    const modal=document.getElementById('focuslyyModal');
+    if(!modal)return;
+    renderCalmStudio();
+    modal.classList.add('open');
+    return;
+  }
+  if(tool==='gen'){
+    const modal=document.getElementById('focuslyyModal');
+    const c=document.getElementById('focuslyyModalContent');
+    if(!modal||!c)return;
+    c.innerHTML=`<h2>✨ Gen Studio</h2>
+      <p class="focuslyy-sub">Tell FOCUSLYY what kind of study atmosphere you want.</p>
+      <textarea id="genPrompt" class="focuslyy-gen-input" placeholder="Example: Zen mode for 25 minutes, rainy deep focus, or café study"></textarea>
+      <div class="actions" style="justify-content:center;margin-top:14px">
+        <button class="primary" onclick="generateStudyAmbience()">✨ Generate</button>
+      </div>
+      <div id="genResult"></div>`;
+    modal.classList.add('open');
+    return;
+  }
+  return _oldOpenFocuslyyModal(tool);
+};
+
+
+let meditationTimer=null, meditationRunning=false, meditationPhase='inhale', meditationSeconds=4;
+
+function startMeditation(){
+  stopMeditation();
+  meditationRunning=true;
+  meditationPhase='inhale';
+  meditationSeconds=4;
+  updateMeditationUI();
+  meditationTimer=setInterval(()=>{
+    meditationSeconds--;
+    if(meditationSeconds<=0){
+      if(meditationPhase==='inhale'){
+        meditationPhase='exhale'; meditationSeconds=6;
+      }else{
+        meditationPhase='inhale'; meditationSeconds=4;
+      }
+    }
+    updateMeditationUI();
+  },1000);
+}
+function stopMeditation(){
+  if(meditationTimer){clearInterval(meditationTimer);meditationTimer=null}
+  meditationRunning=false;
+}
+function updateMeditationUI(){
+  const circle=document.getElementById('breathCircle');
+  const label=document.getElementById('breathLabel');
+  const count=document.getElementById('breathCount');
+  const btn=document.getElementById('meditationBtn');
+  if(!circle)return;
+  circle.className='focuslyy-breath-circle '+(meditationPhase==='inhale'?'inhale':'exhale');
+  if(label)label.textContent=meditationPhase==='inhale'?'INHALE':'EXHALE';
+  if(count)count.textContent=meditationSeconds;
+  if(btn)btn.textContent=meditationRunning?'⏸ Pause':'▶ Start';
+}
+function renderMeditation(){
+  const c=document.getElementById('focuslyyModalContent');
+  c.innerHTML=`<h2>🧘 Meditation</h2>
+    <p class="focuslyy-sub">Follow the circle: inhale as it grows, exhale as it shrinks.</p>
+    <div class="focuslyy-breath-wrap">
+      <div id="breathCircle" class="focuslyy-breath-circle">
+        <div><div id="breathLabel">INHALE</div><div class="focuslyy-breath-count" id="breathCount">4</div></div>
+      </div>
+      <button id="meditationBtn" class="primary" onclick="event.stopPropagation();${'toggleMeditation()'}">▶ Start</button>
+    </div>`;
+  updateMeditationUI();
+}
+function toggleMeditation(){
+  if(meditationRunning)stopMeditation(); else startMeditation();
+  updateMeditationUI();
+}
+
+const _focuslyyOpenWithMusic = window.openFocuslyyModal;
+window.openFocuslyyModal=function(tool){
+  if(tool==='meditation'){
+    const modal=document.getElementById('focuslyyModal');
+    if(!modal)return;
+    renderMeditation();
+    modal.classList.add('open');
+    return;
+  }
+  return _focuslyyOpenWithMusic(tool);
+};
+
 </script>
 </body>
 </html>
